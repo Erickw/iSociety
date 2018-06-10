@@ -1,0 +1,15 @@
+C:\Users\erick\source\repos\iSociety\Ui.Dos\bin\Debug\Ui.Dos.exe.config
+C:\Users\erick\source\repos\iSociety\Ui.Dos\bin\Debug\Ui.Dos.exe
+C:\Users\erick\source\repos\iSociety\Ui.Dos\bin\Debug\Ui.Dos.pdb
+C:\Users\erick\source\repos\iSociety\Ui.Dos\obj\Debug\Ui.Dos.csprojAssemblyReference.cache
+C:\Users\erick\source\repos\iSociety\Ui.Dos\obj\Debug\Ui.Dos.csproj.CoreCompileInputs.cache
+C:\Users\erick\source\repos\iSociety\Ui.Dos\obj\Debug\Ui.Dos.exe
+C:\Users\erick\source\repos\iSociety\Ui.Dos\obj\Debug\Ui.Dos.pdb
+C:\Users\erick\source\repos\iSociety\Ui.Dos\bin\Debug\MySql.Data.dll
+C:\Users\erick\source\repos\iSociety\Ui.Dos\bin\Debug\Google.Protobuf.dll
+C:\Users\erick\source\repos\iSociety\Ui.Dos\bin\Debug\MySql.Data.xml
+C:\Users\erick\source\repos\iSociety\Ui.Dos\obj\Debug\Ui.Dos.csproj.CopyComplete
+C:\Users\erick\source\repos\iSociety\Ui.Dos\bin\Debug\iSociety.Repositorio.dll
+C:\Users\erick\source\repos\iSociety\Ui.Dos\bin\Debug\iSociety.Repositorio.pdb
+C:\Users\erick\source\repos\iSociety\Ui.Dos\bin\Debug\ClassLibrary1.dll
+C:\Users\erick\source\repos\iSociety\Ui.Dos\bin\Debug\ClassLibrary1.pdb

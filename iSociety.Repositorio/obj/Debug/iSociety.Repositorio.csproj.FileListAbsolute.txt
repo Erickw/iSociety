@@ -1,0 +1,10 @@
+C:\Users\erick\source\repos\iSociety\iSociety.Repositorio\bin\Debug\iSociety.Repositorio.dll
+C:\Users\erick\source\repos\iSociety\iSociety.Repositorio\bin\Debug\iSociety.Repositorio.pdb
+C:\Users\erick\source\repos\iSociety\iSociety.Repositorio\bin\Debug\MySql.Data.dll
+C:\Users\erick\source\repos\iSociety\iSociety.Repositorio\bin\Debug\Google.Protobuf.dll
+C:\Users\erick\source\repos\iSociety\iSociety.Repositorio\bin\Debug\MySql.Data.xml
+C:\Users\erick\source\repos\iSociety\iSociety.Repositorio\obj\Debug\iSociety.Repositorio.csprojAssemblyReference.cache
+C:\Users\erick\source\repos\iSociety\iSociety.Repositorio\obj\Debug\iSociety.Repositorio.csproj.CoreCompileInputs.cache
+C:\Users\erick\source\repos\iSociety\iSociety.Repositorio\obj\Debug\iSociety.Repositorio.csproj.CopyComplete
+C:\Users\erick\source\repos\iSociety\iSociety.Repositorio\obj\Debug\iSociety.Repositorio.dll
+C:\Users\erick\source\repos\iSociety\iSociety.Repositorio\obj\Debug\iSociety.Repositorio.pdb
