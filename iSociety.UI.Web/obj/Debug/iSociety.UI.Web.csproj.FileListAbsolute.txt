@@ -101,3 +101,7 @@ C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\obj\Debug\iSociety.UI.Web.p
 C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\MySql.Data.dll
 C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\Google.Protobuf.dll
 C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\MySql.Data.xml
+C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\iSociety.Aplicacao.dll
+C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\iSociety.Repositorio.dll
+C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\iSociety.Aplicacao.pdb
+C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\iSociety.Repositorio.pdb

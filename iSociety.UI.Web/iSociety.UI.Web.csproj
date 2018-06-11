@@ -153,12 +153,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CadastroController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserConsumidorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Contexto.cs" />
     <Compile Include="Models\QueryUsuarioConsumidor.cs" />
     <Compile Include="Models\UsuarioConsumidor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -208,10 +208,11 @@
     <Content Include="Views\UserConsumidor\Detalhes.cshtml" />
     <Content Include="Views\UserConsumidor\Excluir.cshtml" />
     <Content Include="Views\Cadastro\Index.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\Alert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -225,6 +226,16 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\iSociety.Aplicacao\iSociety.Aplicacao.csproj">
+      <Project>{503e2168-a691-4d66-a81d-c723bae6c6c6}</Project>
+      <Name>iSociety.Aplicacao</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\iSociety.Repositorio\iSociety.Repositorio.csproj">
+      <Project>{14f0bfb5-892a-4339-b671-615cfe5a124a}</Project>
+      <Name>iSociety.Repositorio</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

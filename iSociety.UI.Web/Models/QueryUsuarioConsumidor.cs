@@ -92,16 +92,46 @@ namespace iSociety.Models
             }
         }
 
+        public List<string> ListarNomes()
+        {
+            using (contexto = new Contexto())
+            {
+                var strQuery = " SELECT nomeUsuario FROM usuarioConsumidor ";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                return ConvertToString(DataReader);
+            }
+        }
+
         // Executa a Query para listar por ID e armazena resultados na variavel DataReader
 
         public List<UsuarioConsumidor> ListarPorId(int id)
         {
             using (contexto = new Contexto())
             {
-                var strQuery = string.Format(" SELECT * FROM usuarioConsumidor WHERE idUsuario = '{0}' " , id);
+                var strQuery = string.Format(" SELECT * FROM usuarioConsumidor WHERE idUsuario = '{0}' ", id);
                 var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
 
                 return ConvertToObject(DataReader);
+            }
+        }
+
+        public bool ValidaUser(UsuarioConsumidor user)
+        {
+            using (contexto = new Contexto())
+            {
+                var strQuery = string.Format(" SELECT nomeUsuario, senha FROM usuarioConsumidor");
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                var Credenciais = ConvertToObjectLess(DataReader);
+
+                foreach (var usuario in Credenciais)
+                {
+                    if (user.Nome == usuario.Nome && user.Senha == usuario.Senha)
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
             }
         }
 
@@ -126,6 +156,41 @@ namespace iSociety.Models
             reader.Close();
             return users;
         }
+
+        private List<UsuarioConsumidor> ConvertToObjectLess(MySqlDataReader reader)
+        {
+            var users = new List<UsuarioConsumidor>();
+            while (reader.Read())
+            {
+                var temObjeto = new UsuarioConsumidor()
+                {
+                    Nome = reader["nomeUsuario"].ToString(),
+                    Senha = reader["senha"].ToString(),
+                };
+                users.Add(temObjeto);
+            }
+            reader.Close();
+            return users;
+        }
+
+        private List<string> ConvertToString(MySqlDataReader reader)
+        {
+            var nomeUsuarios = new List<string>();
+            while (reader.Read())
+            {
+                var temObjeto = new UsuarioConsumidor()
+                {
+                    Nome = reader["nomeUsuario"].ToString(),
+                };
+
+                nomeUsuarios.Add(temObjeto.Nome);
+            }
+            reader.Close();
+            return nomeUsuarios;
+        }
+
+
+
     }
 }
 
