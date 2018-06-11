@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iSociety.Aplicacao", "iSoci
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iSociety.UI.Web", "iSociety.UI.Web\iSociety.UI.Web.csproj", "{4BC9A837-D9BC-4721-97B9-F02FEE1A5275}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication3", "WebApplication3\WebApplication3.csproj", "{C201DD59-7D83-40D4-A84A-55E0D13770EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{4BC9A837-D9BC-4721-97B9-F02FEE1A5275}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BC9A837-D9BC-4721-97B9-F02FEE1A5275}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BC9A837-D9BC-4721-97B9-F02FEE1A5275}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C201DD59-7D83-40D4-A84A-55E0D13770EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C201DD59-7D83-40D4-A84A-55E0D13770EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C201DD59-7D83-40D4-A84A-55E0D13770EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C201DD59-7D83-40D4-A84A-55E0D13770EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

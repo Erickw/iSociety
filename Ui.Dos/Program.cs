@@ -29,9 +29,9 @@ namespace Ui.Dos
 
             UsuarioConsumidor user1 = new UsuarioConsumidor
             {
-                nome = usuario,
+                Nome = usuario,
                 email = email,
-                senha = senha,
+                Senha = senha,
                 contaBanco = conta,
             };
 

@@ -98,12 +98,6 @@ C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\obj\Debug\iSociety.UI.Web.c
 C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\obj\Debug\iSociety.UI.Web.csproj.CopyComplete
 C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\obj\Debug\iSociety.UI.Web.dll
 C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\obj\Debug\iSociety.UI.Web.pdb
-C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\ClassLibrary1.dll
-C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\iSociety.Aplicacao.dll
-C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\iSociety.Repositorio.dll
 C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\MySql.Data.dll
 C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\Google.Protobuf.dll
-C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\ClassLibrary1.pdb
-C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\iSociety.Aplicacao.pdb
-C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\iSociety.Repositorio.pdb
 C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\MySql.Data.xml
