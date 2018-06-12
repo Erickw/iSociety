@@ -38,7 +38,8 @@ namespace iSociety.UI.Web.Controllers
             var users = new QueryUsuarioConsumidor();
             var usersList = users.ListarPorId(id);
             var usuarioSelecionado = usersList[0];
-            if(usersList == null) {
+            if (usersList == null)
+            {
                 return HttpNotFound();
             }
             return View(usuarioSelecionado);
@@ -57,7 +58,8 @@ namespace iSociety.UI.Web.Controllers
             return View(user);
         }
 
-        public ActionResult Detalhes(int id) {
+        public ActionResult Detalhes(int id)
+        {
             var users = new QueryUsuarioConsumidor();
             var usersList = users.ListarPorId(id);
             var usuarioSelecionado = usersList[0];

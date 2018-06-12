@@ -1,4 +1,4 @@
-﻿@model IEnumerable<iSociety.Dominio.UsuarioConsumidor>
+﻿@model IEnumerable<iSociety.Models.UsuarioConsumidor>
 
 @{
     ViewBag.Title = "Lista de Usuarios";
@@ -12,13 +12,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.nome)
+            @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.senha)
+            @Html.DisplayNameFor(model => model.Senha)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.contaBanco)
@@ -29,19 +29,20 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.nome)
+            @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.senha)
+            @Html.DisplayFor(modelItem => item.Senha)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.contaBanco)
+            
         </td>
         <td>
-            @Html.ActionLink("Editar", "Editar", new { id=item.Id }) |
+            @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
             @Html.ActionLink("Detalhes", "Detalhes", new { id=item.Id }) |
             @Html.ActionLink("Excluir", "Excluir", new { id=item.Id })
         </td>

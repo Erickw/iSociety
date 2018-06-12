@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using iSociety.Repositorio;
 
-namespace iSociety.UI.Web.Controllers
+namespace iSociety.UI.Web.Areas.Usuario.Controllers
 {
     public class CadastroController : Controller
     {

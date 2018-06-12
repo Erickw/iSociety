@@ -152,15 +152,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\CadastroController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Usuario\Controllers\PainelController.cs" />
+    <Compile Include="Areas\Usuario\UsuarioAreaRegistration.cs" />
+    <Compile Include="Areas\Usuario\Controllers\CadastroController.cs" />
+    <Compile Include="Areas\Usuario\Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserConsumidorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\QueryUsuarioConsumidor.cs" />
-    <Compile Include="Models\UsuarioConsumidor.cs" />
+    <Compile Include="Areas\Usuario\Models\QueryUsuarioConsumidor.cs" />
+    <Compile Include="Areas\Usuario\Models\UsuarioConsumidor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +180,14 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Usuario\Views\web.config" />
+    <Content Include="Areas\Usuario\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Usuario\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Usuario\Views\Shared\_LayoutPainel.cshtml" />
+    <Content Include="Areas\Usuario\Views\Painel\Index.cshtml" />
+    <Content Include="Areas\Usuario\Views\Shared\_MenuLateral.cshtml" />
+    <Content Include="Areas\Usuario\Views\Login\Painel.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -207,12 +218,16 @@
     <Content Include="Views\UserConsumidor\Editar.cshtml" />
     <Content Include="Views\UserConsumidor\Detalhes.cshtml" />
     <Content Include="Views\UserConsumidor\Excluir.cshtml" />
-    <Content Include="Views\Cadastro\Index.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
-    <Content Include="Views\Login\Alert.cshtml" />
+    <Content Include="Areas\Usuario\Views\Cadastro\Index.cshtml" />
+    <Content Include="Areas\Usuario\Views\Login\Index.cshtml" />
+    <Content Include="Areas\Usuario\Views\Login\Alert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

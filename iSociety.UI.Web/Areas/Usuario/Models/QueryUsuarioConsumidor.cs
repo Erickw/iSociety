@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 
+
 namespace iSociety.Models
 {
     public class QueryUsuarioConsumidor
@@ -114,6 +115,8 @@ namespace iSociety.Models
                 return ConvertToObject(DataReader);
             }
         }
+
+
 
         public bool ValidaUser(UsuarioConsumidor user)
         {
