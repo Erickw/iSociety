@@ -1,22 +1,18 @@
 ﻿@model iSociety.Models.UsuarioConsumidor
 @{
     ViewBag.Title = "Painel";
+
+
 }
 
 <h2>Painel</h2>
 
-<div>
-    <h4>UsuarioConsumidor</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
 
 
-    </dl>
+
+<div class="span3">
+    <ul class="well navbar-left">
+        <li class="active">@Html.ActionLink("Meu Perfil", "Detalhes", new { id = Model.Id })</li>
+        <li class="active">@Html.ActionLink("Editar Perfil", "Editar", new { id = Model.Id })</li>
+    </ul>
 </div>

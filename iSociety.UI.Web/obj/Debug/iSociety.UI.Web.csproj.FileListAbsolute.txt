@@ -105,3 +105,6 @@ C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\iSociety.Aplicacao.dll
 C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\iSociety.Repositorio.dll
 C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\iSociety.Aplicacao.pdb
 C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\iSociety.Repositorio.pdb
+C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\CryptSharp.dll
+C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\CryptSharp.pdb
+C:\Users\erick\source\repos\iSociety\iSociety.UI.Web\bin\CryptSharp.xml

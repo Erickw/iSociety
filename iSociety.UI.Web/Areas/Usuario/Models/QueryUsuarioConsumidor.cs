@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Collections.Generic;
+using CryptSharp;
 
 
 namespace iSociety.Models
@@ -116,29 +117,34 @@ namespace iSociety.Models
             }
         }
 
-
-
-        public bool ValidaUser(UsuarioConsumidor user)
+        public List<UsuarioConsumidor> ListarPorNome(string nome)
         {
             using (contexto = new Contexto())
             {
-                var strQuery = string.Format(" SELECT nomeUsuario, senha FROM usuarioConsumidor");
+                var strQuery = string.Format(" SELECT * FROM usuarioConsumidor WHERE nomeUsuario = '{0}' ", nome);
                 var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
-                var Credenciais = ConvertToObjectLess(DataReader);
 
-                foreach (var usuario in Credenciais)
-                {
-                    if (user.Nome == usuario.Nome && user.Senha == usuario.Senha)
-                    {
-                        return true;
-                    }
-                }
-
-                return false;
+                return ConvertToObject(DataReader);
             }
         }
 
 
+        public bool ValidaUser(UsuarioConsumidor user)
+        {
+
+            using (contexto = new Contexto())
+            {
+                
+                var strQuery = $"SELECT nomeUsuario, senha FROM usuarioConsumidor WHERE nomeUsuario = '{user.Nome}'";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                var Credenciais = ConvertToObjectLess(DataReader);
+
+                if (Crypter.CheckPassword(user.Senha, Credenciais[0].Senha))
+                    return true;
+                return false;
+            }
+        } 
+        
         // Converte o Resultado da query do metodo anterior em uma lista
 
         private List<UsuarioConsumidor> ConvertToObject(MySqlDataReader reader)

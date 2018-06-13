@@ -1,17 +1,17 @@
 ﻿@model iSociety.Models.UsuarioConsumidor
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Login Usuario";
 }
 
-<h2>Index</h2>
+<h2>Entre e começe a jogar já!</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>UsuarioConsumidor</h4>
+    
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
     <hr />
@@ -43,7 +43,3 @@
 </div>
 }
 
-<div>
-    
-    @Html.ActionLink("Voltar ", "Index")
-</div>

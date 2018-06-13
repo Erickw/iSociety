@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace iSociety.Models
 
 {
-    public class UsuarioConsumidor
+    public class UsuarioConsumidor 
     {
         
         public int Id { get; set; }

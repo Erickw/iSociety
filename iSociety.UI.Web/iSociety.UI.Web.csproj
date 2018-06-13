@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CryptSharp, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CryptSharpOfficial.2.1.0.0\lib\CryptSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data, Version=8.0.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -185,9 +188,10 @@
     <Content Include="Areas\Usuario\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Usuario\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Usuario\Views\Shared\_LayoutPainel.cshtml" />
-    <Content Include="Areas\Usuario\Views\Painel\Index.cshtml" />
     <Content Include="Areas\Usuario\Views\Shared\_MenuLateral.cshtml" />
     <Content Include="Areas\Usuario\Views\Login\Painel.cshtml" />
+    <Content Include="Areas\Usuario\Views\Login\Detalhes.cshtml" />
+    <Content Include="Areas\Usuario\Views\Login\Editar.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

@@ -1,6 +1,7 @@
 ﻿using iSociety.Models;
 using System.Web.Mvc;
 using iSociety.Repositorio;
+using CryptSharp;
 
 namespace iSociety.UI.Web.Areas.Usuario.Controllers
 {
@@ -18,9 +19,10 @@ namespace iSociety.UI.Web.Areas.Usuario.Controllers
         {
             if (ModelState.IsValid)
             {
-                var cripto = new Cripto();
+                //var cripto = new Cripto();
+                string senhaHash = Crypter.Blowfish.Crypt(user.Senha);
                 var usuario = new QueryUsuarioConsumidor();
-                var senhaHash = cripto.Hash(user.Senha);
+                //var senhaHash = cripto.Hash(user.Senha);
                 user.Senha = senhaHash;
                 usuario.Inserir(user);
                 return RedirectToAction("Index");

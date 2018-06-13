@@ -1,4 +1,5 @@
 ﻿using iSociety.Models;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 
@@ -37,12 +38,12 @@ namespace iSociety.UI.Web.Controllers
         {
             var users = new QueryUsuarioConsumidor();
             var usersList = users.ListarPorId(id);
-            var usuarioSelecionado = usersList[0];
+            //var usuarioSelecionado = usersList[0];
             if (usersList == null)
             {
                 return HttpNotFound();
             }
-            return View(usuarioSelecionado);
+            return View(usersList);
         }
 
         [HttpPost]

@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.DisplayName("Nome de Usuário")
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.email)
+            @Html.DisplayName("E-mail")
         </dt>
 
         <dd>
@@ -27,15 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Senha)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Senha)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.contaBanco)
+            @Html.DisplayName("Conta Bancária")
         </dt>
 
         <dd>
@@ -44,7 +36,4 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Editar", "Editar", new { id = Model.Id }) |
-    @Html.ActionLink("Voltar", "Index")
-</p>
+
