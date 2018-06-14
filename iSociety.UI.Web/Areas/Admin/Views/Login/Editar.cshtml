@@ -1,4 +1,4 @@
-﻿@model iSociety.Models.UsuarioConsumidor
+﻿@model iSociety.Areas.Admin.Models.UsuarioFornecedor
 
 @{
     ViewBag.Title = "Editar";
@@ -11,13 +11,13 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Atualize seus dados e clique em <b>Salvar</b></h4>
+        <h4>UsuarioFornecedor</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Nome", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
@@ -25,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("E-mail", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
@@ -33,7 +33,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Senha, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Senha", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.PasswordFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.contaBanco, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Conta Bancária" , htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.contaBanco, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.contaBanco, "", new { @class = "text-danger" })

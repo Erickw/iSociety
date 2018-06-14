@@ -1,0 +1,61 @@
+﻿@model IEnumerable<iSociety.UI.Web.Models.Campo>
+
+@{
+    ViewBag.Title = "Editar Campos";
+}
+
+<h2>Edite ou remova seus campos</h2>
+
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rua)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cep)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.numero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.bar)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rua)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cep)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.bar)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "EditCampo", new { id=item.id }) |            
+            @Html.ActionLink("Excluir", "Excluir", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

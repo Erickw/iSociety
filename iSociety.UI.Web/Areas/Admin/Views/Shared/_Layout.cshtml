@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Painel do Usuario</title>
+    <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/bootstrap.css")
     @Scripts.Render("~/bundles/modernizr")
@@ -25,20 +25,13 @@
                     <li>@Html.ActionLink("Início", "Index", "Home")</li>
                     <li>@Html.ActionLink("Sobre", "About", "Home")</li>
                     <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Sair", "Index", "Login")</li>
-                </ul>
+                   </ul>
             </div>
         </div>
     </div>
     <div class="container body-content">
-        <div class="row">
-            @RenderBody()
-            <div class="span9">
-                @Html.Partial("_MenuLateral")
-
-            </div>
-
-        </div>
+        @RenderBody()
+        <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - iSociety Brand</p>
         </footer>

@@ -1,18 +1,18 @@
 ﻿@model iSociety.Models.UsuarioConsumidor
 @{
     ViewBag.Title = "Painel";
-
+    Layout = "~/Areas/Usuario/Views/Shared/_LayoutPainel.cshtml";
 
 }
 
 <h2>Painel</h2>
 
 
+@*<div class="span3">
+        <ul class="well navbar-left">
+            <li class="active">@Html.ActionLink("Meu Perfil", "Detalhes", new { id = Model.Id })</li>
+            <li class="active">@Html.ActionLink("Editar Perfil", "Editar", new { id = Model.Id })</li>
+        </ul>
+    </div>*@
 
 
-<div class="span3">
-    <ul class="well navbar-left">
-        <li class="active">@Html.ActionLink("Meu Perfil", "Detalhes", new { id = Model.Id })</li>
-        <li class="active">@Html.ActionLink("Editar Perfil", "Editar", new { id = Model.Id })</li>
-    </ul>
-</div>

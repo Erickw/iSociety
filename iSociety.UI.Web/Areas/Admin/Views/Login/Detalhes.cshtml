@@ -1,0 +1,38 @@
+﻿@model iSociety.Areas.Admin.Models.UsuarioFornecedor
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>UsuarioFornecedor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.contaBanco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.contaBanco)
+        </dd>
+    </dl>
+</div>
+

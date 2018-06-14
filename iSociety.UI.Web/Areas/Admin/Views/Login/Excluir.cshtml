@@ -1,0 +1,70 @@
+﻿@model iSociety.UI.Web.Models.Campo
+
+@{
+    ViewBag.Title = "Excluir";
+}
+
+
+<h3>Tem certeza que deseja excluir o campo @Model.Nome</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayName("Nome:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Rua:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rua)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("CEP:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cep)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Número:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.numero)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Cidade:")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Contém Bar?")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bar)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-default" />            
+        </div>
+    }
+</div>

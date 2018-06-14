@@ -156,6 +156,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CadastroController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PainelController.cs" />
+    <Compile Include="Areas\Admin\Models\QueryUsuarioFornecedor.cs" />
+    <Compile Include="Areas\Admin\Models\UsuarioFornecedor.cs" />
+    <Compile Include="Areas\Master\Controllers\GerenciaAdminController.cs" />
+    <Compile Include="Areas\Master\MasterAreaRegistration.cs" />
     <Compile Include="Areas\Usuario\Controllers\PainelController.cs" />
     <Compile Include="Areas\Usuario\UsuarioAreaRegistration.cs" />
     <Compile Include="Areas\Usuario\Controllers\CadastroController.cs" />
@@ -167,6 +174,7 @@
     </Compile>
     <Compile Include="Areas\Usuario\Models\QueryUsuarioConsumidor.cs" />
     <Compile Include="Areas\Usuario\Models\UsuarioConsumidor.cs" />
+    <Compile Include="Models\Campo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +200,27 @@
     <Content Include="Areas\Usuario\Views\Login\Painel.cshtml" />
     <Content Include="Areas\Usuario\Views\Login\Detalhes.cshtml" />
     <Content Include="Areas\Usuario\Views\Login\Editar.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutPainel.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Alert.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Painel.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_MenuLateral.cshtml" />
+    <Content Include="Areas\Master\Views\web.config" />
+    <Content Include="Areas\Master\Views\Cadastrar.cshtml" />
+    <Content Include="Areas\Master\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Master\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Master\Views\GerenciaAdmin\Cadastrar.cshtml" />
+    <Content Include="Areas\Master\Views\GerenciaAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Detalhes.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Editar.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\AdicionarCampo.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\CampoAdicionado.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\EditarCampo.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\EditCampo.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\CampoExcluido.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Excluir.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -228,10 +257,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Models\" />
+    <Folder Include="Areas\Master\Models\" />
+    <Folder Include="Areas\Master\Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
