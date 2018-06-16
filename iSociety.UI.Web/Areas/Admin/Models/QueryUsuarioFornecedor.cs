@@ -4,6 +4,7 @@ using CryptSharp;
 using iSociety.Models;
 using iSociety.UI.Web.Models;
 using System;
+using iSociety.UI.Web.Areas.Admin.Models;
 
 namespace iSociety.Areas.Admin.Models
 {
@@ -39,6 +40,83 @@ namespace iSociety.Areas.Admin.Models
             {
                 contexto.ExecutaComando(strQuery);
             }
+        }
+
+        //Verifica se o horario adicionado já é existente, caso seja a listaHorarios é maior que 0
+
+        public bool VerificaHorario(Horario horario) {
+
+            IEnumerable<String> horarios = horario.horarios.Split(',');
+            var listaHorarios = new List<Horario>();
+            var horariosRetornados = new List<MySqlDataReader>();
+
+            foreach (String item in horarios) {
+                
+                using (contexto = new Contexto())
+                {
+                    var strQuery = $"SELECT idCampo ,horarioDisponivel FROM horarios WHERE horarioDisponivel LIKE '{item}%' AND idCampo = '{horario.idCampo}'";
+                    var DataReader = contexto.ExecutaComandoComRetorno(strQuery);                  
+                    while (DataReader.Read())
+                    {
+                        var temObjeto = new Horario()
+                        {     
+                            idCampo = int.Parse(DataReader["idCampo"].ToString()),
+                            horarios = DataReader["horarioDisponivel"].ToString(),
+                        };
+                        listaHorarios.Add(temObjeto);
+                    }
+                }
+            }
+            return listaHorarios.Count == 0;
+        }
+
+        public void AdicionarHorario(Horario horario)
+        {
+            IEnumerable<String> horarios = horario.horarios.Split(',');
+            
+            foreach (String item in horarios){
+                var strQuery = "";
+                strQuery += "INSERT INTO horarios (idCampo, horarioDisponivel)";
+                strQuery += string.Format("VALUES('{0}', '{1}')", horario.idCampo, item);            
+
+                using (contexto = new Contexto())
+                {
+                    contexto.ExecutaComando(strQuery);
+                }
+            }
+        }
+
+        public void CriarAluguel(Aluguel aluguel)
+        {
+            int confirmado = 0;
+            if (aluguel.confirmado == true)
+            {
+                confirmado = 1;
+            }
+            var strQuery = "";
+            strQuery += "INSERT INTO aluguel (idAluguel, idCampo,horarioInicio, horarioFim, confirmado, valor)";
+            strQuery += string.Format("VALUES( '{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", aluguel.idAluguel, aluguel.idCampo, aluguel.horarioInicio, aluguel.horarioFim, confirmado, aluguel.valor);
+
+            using (contexto = new Contexto())
+            {
+                contexto.ExecutaComando(strQuery);
+            }
+
+        }
+
+        public void ExcluirHorario(Horario horario)
+        {
+            IEnumerable<String> horarios = horario.horarios.Split(',');
+
+            foreach (String item in horarios)
+            {
+                var strQuery = "";
+                strQuery += $"DELETE FROM horarios WHERE idCampo = '{horario.idCampo}' and horarioDisponivel = '{item}'";                
+                using (contexto = new Contexto())
+                {
+                    contexto.ExecutaComando(strQuery);
+                }
+            }            
         }
 
         public void AlterarEmail(UsuarioFornecedor user)
@@ -102,6 +180,30 @@ namespace iSociety.Areas.Admin.Models
             }
         }
 
+        public void AlterarAluguel(Aluguel aluguel)
+        {
+            var strQuery = "";
+            strQuery += $"UPDATE aluguel SET idAluguel = {aluguel.idAluguel}, idCampo = {aluguel.idCampo}, responsavelId = {aluguel.reponsavelId}," +
+                        $" horarioInicio = '{aluguel.horarioInicio}', horarioFim = '{aluguel.horarioFim}', confirmado = {aluguel.confirmado}, valor = {aluguel.valor} WHERE idAluguel = {aluguel.idAluguel}";
+
+            using (contexto = new Contexto())
+            {
+                contexto.ExecutaComando(strQuery);
+            }
+        }
+
+        public void ConfirmarAluguel(CampoAluguel campAluguel)
+        {
+
+            var strQuery = "";
+            strQuery += $"UPDATE aluguel SET (idCampo,horarioInicio, horarioFim, confirmado, valor)";
+
+            using (contexto = new Contexto())
+            {
+                contexto.ExecutaComando(strQuery);
+            }
+        }
+
         //Metodo somente para classe usuario fornecedor
 
         public void Excluir(int id)
@@ -134,6 +236,15 @@ namespace iSociety.Areas.Admin.Models
             }
         }
 
+        public List<Campo> ListarTodosCampos()
+        {
+            using (contexto = new Contexto())
+            {
+                var strQuery = " SELECT * FROM campo ";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                return ConvertCampoToObject(DataReader);
+            }
+        }
 
         public List<Campo> ListarCamposPorId(int id)
         {
@@ -144,7 +255,16 @@ namespace iSociety.Areas.Admin.Models
                 return ConvertCampoToObject(DataReader);
             }
         }
-                
+        
+        public List<Aluguel> ListarAluguelPorId(int id)
+        {
+            using (contexto = new Contexto())
+            {
+                var strQuery = $" SELECT * FROM aluguel WHERE idAluguel = {id}";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                return ConvertAluguelToObject(DataReader);
+            }
+        }
 
         public Campo SelecionaCampo(int id)
         {
@@ -228,6 +348,30 @@ namespace iSociety.Areas.Admin.Models
             reader.Close();
             return users;
         }
+
+
+        private List<Aluguel> ConvertAluguelToObject(MySqlDataReader reader)
+        {
+            var rents = new List<Aluguel>();
+            while (reader.Read())
+            {
+                var temObjeto = new Aluguel()
+                {
+                    idAluguel = int.Parse(reader["idAluguel"].ToString()),
+                    idCampo = int.Parse(reader["idCampo"].ToString()),
+                   // reponsavelId = (reader["responsavelId"].DB),
+                    //idPagamento = (reader["responsavelId"].ToString()),
+                    horarioInicio = reader["horarioInicio"].ToString(),
+                    horarioFim = reader["horarioFim"].ToString(),
+                    confirmado = bool.Parse(reader["confirmado"].ToString())
+                };
+                rents.Add(temObjeto);
+            }
+            reader.Close();
+            return rents;
+        }
+
+
 
         private List<Campo> ConvertCampoToObject(MySqlDataReader reader)
         {

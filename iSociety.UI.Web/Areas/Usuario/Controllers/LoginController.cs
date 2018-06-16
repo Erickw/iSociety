@@ -1,5 +1,7 @@
 ﻿using CryptSharp;
+using iSociety.Areas.Admin.Models;
 using iSociety.Models;
+using iSociety.UI.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +47,8 @@ namespace iSociety.UI.Web.Areas.Usuario.Controllers
         {
             if (TempData["UsuarioConsumidor"] != null)
             {
-                var logado = TempData["UsuarioConsumidor"] as UsuarioConsumidor;          
+                var logado = TempData["UsuarioConsumidor"] as UsuarioConsumidor;
+                TempData.Keep();
                 var users = new QueryUsuarioConsumidor();
                 List<UsuarioConsumidor> usersList = users.ListarPorNome(logado.Nome);                
                 if (usersList.Count() == 0)
@@ -97,6 +100,41 @@ namespace iSociety.UI.Web.Areas.Usuario.Controllers
             return View(user);
         }
 
+        public ActionResult ListarCampoAluguel(int id)
+        {           
+            var field = new QueryUsuarioConsumidor();
+            var fieldList = field.ListarCamposAlugueis();
+            var logged = new UsuarioConsumidor {Id = id};
+            TempData["UsuarioConsumidor"] = logged;
+            return View(fieldList);
+        }
+
+        public ActionResult Reservar(int id)
+        {
+            var logged = TempData["UsuarioConsumidor"] as UsuarioConsumidor;
+            TempData.Keep();
+            var field = new QueryUsuarioConsumidor();
+            var fieldList = field.ListarCamposAlugueisPorId(id);
+            fieldList.First().responsavelId = logged.Id;                 
+
+            return View(fieldList.First()); 
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Reservar(CampoAluguel campAluguel)
+        {
+            if (ModelState.IsValid)
+            {
+                var queryAluguel = new QueryUsuarioFornecedor();
+                var aluguel = queryAluguel.ListarAluguelPorId(campAluguel.aluguelId);
+                aluguel.First().reponsavelId = campAluguel.responsavelId;
+                queryAluguel.AlterarAluguel(aluguel.First());
+
+                return View("SucessoReserva");
+            }
+            return View("Alert");
+        }
 
         public ActionResult Alert()
         {

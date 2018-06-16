@@ -1,6 +1,7 @@
 ﻿using CryptSharp;
 using iSociety.Areas.Admin.Models;
 using iSociety.Models;
+using iSociety.UI.Web.Areas.Admin.Models;
 using iSociety.UI.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -120,7 +121,7 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
             }
             return View();
          }
-
+          
         public ActionResult EditarCampo(int id) {
             var field = new QueryUsuarioFornecedor();
             var fieldList = field.ListarCamposPorId(id);
@@ -151,6 +152,87 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
             return View(campo);
         }
 
+        public ActionResult AdicionarHorario(int id)
+        {
+            var campo = new QueryUsuarioFornecedor();
+            var campoEscolhido = campo.SelecionaCampo(id);
+            Horario hora = new Horario();
+            hora.idCampo = campoEscolhido.id;
+            return View(hora);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdicionarHorario(Horario hora)
+        {
+            int i = hora.idCampo;
+            var h = hora.horarios;
+            if (ModelState.IsValid)
+            {                
+                var horario = new QueryUsuarioFornecedor();
+                if (horario.VerificaHorario(hora)) {
+                    horario.AdicionarHorario(hora);
+                    return RedirectToAction("HorarioAdicionado");
+                }
+            }
+            return RedirectToAction("HorarioExistente");
+        }
+
+        public ActionResult AdicionarAluguel(int id) {
+            var campo = new QueryUsuarioFornecedor();
+            var campoEscolhido = campo.SelecionaCampo(id);
+            Aluguel aluguel = new Aluguel();
+            aluguel.idCampo = campoEscolhido.id;
+            return View(aluguel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdicionarAluguel(Aluguel aluguel)
+        {
+            if (ModelState.IsValid)
+            {
+                var queryAluguel = new QueryUsuarioFornecedor();
+                var hora = new Horario {
+                    idCampo = aluguel.idCampo,
+                    horarios = aluguel.horarioInicio                    
+                };
+                
+                if (!queryAluguel.VerificaHorario(hora))
+                {   
+                    queryAluguel.CriarAluguel(aluguel);
+                    queryAluguel.ExcluirHorario(hora);
+                    return View("SucessoAluguel");
+                }
+            }
+            return RedirectToAction("HorarioExistente");
+        }
+
+        public ActionResult ExcluirHorario(int id)
+        {
+            var campo = new QueryUsuarioFornecedor();
+            var campoEscolhido = campo.SelecionaCampo(id);
+            Horario hora = new Horario();
+            hora.idCampo = campoEscolhido.id;
+            return View(hora);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ExcluirHorario(Horario hora)
+        {
+            if (ModelState.IsValid)
+            {
+                var horario = new QueryUsuarioFornecedor();
+                if (!horario.VerificaHorario(hora))
+                {
+                    horario.ExcluirHorario(hora);
+                    return RedirectToAction("HorarioExcluido");
+                }
+            }
+            return RedirectToAction("HorarioNaoExistente");
+        }
+
         public ActionResult Excluir(int id)
         {
             var field = new QueryUsuarioFornecedor();
@@ -176,10 +258,31 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult HorarioExistente()
+        {
+            return View();
+        }
+
+        public ActionResult HorarioAdicionado()
+        {
+            return View();
+        }
+
+        public ActionResult HorarioExcluido()
+        {
+            return View();
+        }
+
+        public ActionResult HorarioNaoExistente()
+        {
+            return View();
+        }
+
         public ActionResult Alert()
         {
             return View();
         }
+
 
     }
 

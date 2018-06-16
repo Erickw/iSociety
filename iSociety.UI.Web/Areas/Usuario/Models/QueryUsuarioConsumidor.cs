@@ -1,7 +1,9 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using CryptSharp;
-
+using iSociety.UI.Web.Models;
+using System.Globalization;
+using System;
 
 namespace iSociety.Models
 {
@@ -71,6 +73,18 @@ namespace iSociety.Models
             }
         }
 
+        //public void AlterarAluguel(CampoAluguel aluguel)
+        //{
+
+        //    var strQuery = $"UPDATE aluguel SET reponsavelId = {aluguel.responsavelId}, pagamento = {aluguel.id} ";
+
+        //    using (contexto = new Contexto())
+        //    {
+        //        contexto.ExecutaComando(strQuery);
+        //    }
+
+        //}
+
         //Metodo somente para classe usuario fornecedor
 
         public void Excluir(int id)
@@ -104,6 +118,18 @@ namespace iSociety.Models
             }
         }
 
+        public List<CampoAluguel> ListarCamposAlugueis()
+        {
+            using (contexto = new Contexto())
+            {
+                var strQuery = $"SELECT C.nomeCampo, C.rua, C.cep, C.numero, C.cidade, C.bar, A.idAluguel,  A.horarioInicio, A.horarioFim, A.valor FROM aluguel as A JOIN campo as  C ON A.idCampo = C.idCampo WHERE confirmado = {0} and A.responsavelId IS NULL";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                return ConvertCampoAluguelToObject(DataReader);
+            }
+        }
+
+
+
         // Executa a Query para listar por ID e armazena resultados na variavel DataReader
 
         public List<UsuarioConsumidor> ListarPorId(int id)
@@ -117,6 +143,17 @@ namespace iSociety.Models
             }
         }
 
+        public List<CampoAluguel> ListarCamposAlugueisPorId(int id) {
+
+            using (contexto = new Contexto())
+            {
+                var strQuery = $"SELECT C.nomeCampo, C.rua, C.cep, C.numero, C.cidade, C.bar, A.idAluguel,  A.horarioInicio, A.horarioFim," +
+                               $" A.valor FROM aluguel as A JOIN campo as  C ON A.idCampo = C.idCampo WHERE idAluguel = {id}";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                return ConvertCampoAluguelToObject(DataReader);
+            }
+        }
+
         public List<UsuarioConsumidor> ListarPorNome(string nome)
         {
             using (contexto = new Contexto())
@@ -127,8 +164,7 @@ namespace iSociety.Models
                 return ConvertToObject(DataReader);
             }
         }
-
-
+        
         public bool ValidaUser(UsuarioConsumidor user)
         {
 
@@ -164,6 +200,31 @@ namespace iSociety.Models
             }
             reader.Close();
             return users;
+        }
+
+        private List<CampoAluguel> ConvertCampoAluguelToObject(MySqlDataReader reader)
+        {
+            var fields = new List<CampoAluguel>();
+            while (reader.Read())
+            {
+                var temObjeto = new CampoAluguel()
+                {
+                    aluguelId = int.Parse(reader["idAluguel"].ToString()),
+                    responsavelId = 0,
+                    nomeCampo = reader["nomeCampo"].ToString(),
+                    rua = reader["rua"].ToString(),
+                    cep = reader["cep"].ToString(),
+                    numero = int.Parse(reader["numero"].ToString()),
+                    cidade = reader["cidade"].ToString(),
+                    bar = bool.Parse(reader["bar"].ToString()),
+                    horarioInicio = reader["horarioInicio"].ToString(),
+                    horarioFim = reader["horarioFim"].ToString(),
+                    valor = Double.Parse(reader["valor"].ToString())
+                };
+                fields.Add(temObjeto);
+            }
+            reader.Close();
+            return fields;
         }
 
         private List<UsuarioConsumidor> ConvertToObjectLess(MySqlDataReader reader)

@@ -159,6 +159,7 @@
     <Compile Include="Areas\Admin\Controllers\CadastroController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\PainelController.cs" />
+    <Compile Include="Areas\Admin\Models\Horario.cs" />
     <Compile Include="Areas\Admin\Models\QueryUsuarioFornecedor.cs" />
     <Compile Include="Areas\Admin\Models\UsuarioFornecedor.cs" />
     <Compile Include="Areas\Master\Controllers\GerenciaAdminController.cs" />
@@ -174,7 +175,9 @@
     </Compile>
     <Compile Include="Areas\Usuario\Models\QueryUsuarioConsumidor.cs" />
     <Compile Include="Areas\Usuario\Models\UsuarioConsumidor.cs" />
+    <Compile Include="Models\Aluguel.cs" />
     <Compile Include="Models\Campo.cs" />
+    <Compile Include="Models\CampoAluguel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +224,17 @@
     <Content Include="Areas\Admin\Views\Login\EditCampo.cshtml" />
     <Content Include="Areas\Admin\Views\Login\CampoExcluido.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Excluir.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\AdicionarHorario.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\HorarioExistente.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\HorarioAdicionado.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\ExcluirHorario.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\HorarioExcluido.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\HorarioNaoExistente.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\AdicionarAluguel.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\SucessoAluguel.cshtml" />
+    <Content Include="Areas\Usuario\Views\Login\ListarCampoAluguel.cshtml" />
+    <Content Include="Areas\Usuario\Views\Login\SucessoReserva.cshtml" />
+    <Content Include="Areas\Usuario\Views\Login\Reservar.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

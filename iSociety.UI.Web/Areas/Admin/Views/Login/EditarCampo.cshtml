@@ -52,8 +52,11 @@
             @Html.DisplayFor(modelItem => item.bar)
         </td>
         <td>
-            @Html.ActionLink("Editar", "EditCampo", new { id=item.id }) |            
-            @Html.ActionLink("Excluir", "Excluir", new { id=item.id })
+            @Html.ActionLink("Adicionar Horário", "AdicionarHorario", new { id = item.id }) |
+            @Html.ActionLink("Remover Horário", "ExcluirHorario", new { id = item.id }) |
+            @Html.ActionLink("Editar", "EditCampo", new { id = item.id }) |
+            @Html.ActionLink("Excluir", "Excluir", new { id = item.id }) |
+            @Html.ActionLink("Criar Aluguel", "AdicionarAluguel", new { id = item.id }) |
         </td>
     </tr>
 }
