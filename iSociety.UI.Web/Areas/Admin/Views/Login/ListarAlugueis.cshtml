@@ -13,19 +13,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayName("Aluguel ID")
-        </th>
-        <th>
-            @Html.DisplayName("Responsável ID")
-        </th>
-        <th>
-            @Html.DisplayName("Administrador ID")
-        </th>
-        <th>
             @Html.DisplayName("Nome do Campo")
         </th>
         <th>
             @Html.DisplayName("Rua")
+        </th>
+        <th>
+            @Html.DisplayName("Número")
+        </th>
+        <th>
+            @Html.DisplayName("Cidade")
         </th>
         <th>
             @Html.DisplayName("Horário do Inicio")
@@ -36,15 +33,7 @@
         <th>
             @Html.DisplayName("Valor")
         </th>
-        <th>
-            @Html.DisplayName("CEP")
-        </th>
-        <th>
-            @Html.DisplayName("Número")
-        </th>
-        <th>
-            @Html.DisplayName("Cidade")
-        </th>
+
         <th>
             @Html.DisplayName("Contém Bar")
         </th>
@@ -53,47 +42,39 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.aluguelId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.responsavelId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.administradorId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nomeCampo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.rua)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.horarioInicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.horarioFim)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.valor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cep)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.numero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.bar)
-            </td>
-            <td>
-                @Html.ActionLink("Remover Aluguel", "RemoverAluguel", new { id = item.aluguelId })
-            </td>
-        </tr>
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.nomeCampo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rua)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cidade)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.horarioInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.horarioFim)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.valor)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.bar)
+        </td>
+        <td>
+            @Html.ActionLink("Remover Aluguel", "RemoverAluguel", new { id = item.aluguelId })
+        </td>
+    </tr>
     }
 
 </table>

@@ -3114,9 +3114,10 @@ fieldset[disabled] .btn-default.focus {
   background-color: #333;
 }
 .btn-primary {
+
     align-self:center;
     text-align:center;
-    vertical-align:central;
+    vertical-align:middle;
     align-content:center;
     color: #fff;
     background-color: #529c3b;
@@ -3124,7 +3125,7 @@ fieldset[disabled] .btn-default.focus {
     width: 150px;
     height: 80px;
     border-radius: 5px;
-    /*background-image: url(http://icons.iconarchive.com/icons/fatcow/farm-fresh/16/accept-icon.png);*/
+    /*background-image: url(http://icons.iconarchive.com/icons/fatcow/farm-fresh/16/accept-icon.png); */
 }
 .btn-primary:focus,
 .btn-primary.focus {

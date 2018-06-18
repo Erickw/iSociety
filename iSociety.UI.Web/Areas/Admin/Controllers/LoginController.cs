@@ -344,6 +344,37 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
             }
             return View(pgtoList);
         }
+        
+        public ActionResult AdicionarPlanoMensal(int id) {
+            var queryPlanoMensal = new QueryUsuarioFornecedor();
+            var campoEscolhido = queryPlanoMensal.SelecionaCampo(id);
+            PlanoMensal planoMensal = new PlanoMensal();
+            planoMensal.campoId = campoEscolhido.id;
+            return View(planoMensal);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdicionarPlanoMensal(PlanoMensal planoMensal)
+        {
+            if (ModelState.IsValid)
+            {
+                var queryPlanoMensal = new QueryUsuarioFornecedor();
+                var hora = new Horario
+                {
+                    idCampo = planoMensal.campoId,
+                    horarios = planoMensal.horarioInicio
+                };
+
+                if (!queryPlanoMensal.VerificaHorario(hora))
+                {
+                    queryPlanoMensal.CriarPlanoMensal(planoMensal);
+                    queryPlanoMensal.ExcluirHorario(hora);
+                    return View("SucessoPlanoMensal");
+                }
+            }
+            return RedirectToAction("HorarioExistente");
+        }
 
 
         public ActionResult CampoExcluido() {

@@ -105,6 +105,19 @@ namespace iSociety.Areas.Admin.Models
 
         }
 
+        public void CriarPlanoMensal(PlanoMensal planoMensal)
+        {
+            var strQuery = "";
+            strQuery += $"INSERT INTO planoMensal (idPlanoMensal, campoId , horarioInicio, horarioFim, diaSemana) " +
+                        $"VALUES ({planoMensal.idPlanoMensal}, {planoMensal.campoId}, '{planoMensal.horarioInicio}', " +
+                        $"'{planoMensal.horarioFim}', '{planoMensal.diaSemana}')";            
+
+            using (contexto = new Contexto())
+            {
+                contexto.ExecutaComando(strQuery);
+            }
+        }
+
         public void RemoverAluguel(Aluguel aluguel) {
 
             var strQuery = "";
@@ -383,8 +396,7 @@ namespace iSociety.Areas.Admin.Models
             reader.Close();
             return users;
         }
-
-
+        
         private List<Aluguel> ConvertAluguelToObject(MySqlDataReader reader)
         {
             var rents = new List<Aluguel>();
@@ -405,9 +417,7 @@ namespace iSociety.Areas.Admin.Models
             reader.Close();
             return rents;
         }
-
-
-
+        
         private List<Campo> ConvertCampoToObject(MySqlDataReader reader)
         {
             var fields = new List<Campo>();

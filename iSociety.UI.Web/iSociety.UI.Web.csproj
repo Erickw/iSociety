@@ -179,6 +179,7 @@
     <Compile Include="Models\Campo.cs" />
     <Compile Include="Models\CampoAluguel.cs" />
     <Compile Include="Models\Pagamento.cs" />
+    <Compile Include="Models\PlanoMensal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +248,8 @@
     <Content Include="Areas\Admin\Views\Login\SucessoRemoverAluguel.cshtml" />
     <Content Include="Areas\Admin\Views\Login\NaoHaDados.cshtml" />
     <Content Include="Areas\Admin\Views\Login\VerPagamentos.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\AdicionarPlanoMensal.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\SucessoPlanoMensal.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

@@ -1,10 +1,10 @@
-﻿@model iSociety.UI.Web.Models.Aluguel
+﻿@model iSociety.UI.Web.Models.PlanoMensal
 
 @{
-    ViewBag.Title = "AdicionarAluguel";
+    ViewBag.Title = "AdicionarPlanoMensal";
 }
 
-<h3>Insira os dados abaixo e crie um novo <b>aluguel</b> para o campo selecionado</h3>
+<h3>Insira os dados abaixo e crie um novo <b>plano mensal</b> para o campo selecionado</h3>
 
 @using (Html.BeginForm())
 {
@@ -13,7 +13,7 @@
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        
+
         <div class="form-group">
             @Html.Label("Horário do Início:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -23,7 +23,7 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Horário do fim:", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Horário do Fim:", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.horarioFim, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.horarioFim, "", new { @class = "text-danger" })
@@ -31,17 +31,22 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Valor:", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.valor, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.valor, "", new { @class = "text-danger" })
+            @Html.Label("Dia da semana:", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.RadioButtonFor(model => model.diaSemana, "Domingo") <p>Domingo</p>
+                @Html.RadioButtonFor(model => model.diaSemana, "Segunda") <p>Segunda</p>
+                @Html.RadioButtonFor(model => model.diaSemana, "Terça") <p>Terça</p>
+                @Html.RadioButtonFor(model => model.diaSemana, "Quarta") <p>Quarta</p>
+                @Html.RadioButtonFor(model => model.diaSemana, "Quinta") <p>Quinta</p>
+                @Html.RadioButtonFor(model => model.diaSemana, "Sexta") <p>Sexta</p>
+                @Html.RadioButtonFor(model => model.diaSemana, "Sábado") <p>Sábado</p>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Criar Aluguel" class="btn btn-default" />
+                <input type="submit" value="Criar Plano Mensal" class="btn btn-default" />
             </div>
         </div>
     </div>
-
+}

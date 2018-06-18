@@ -36,7 +36,6 @@ namespace iSociety.Models
                 CommandType = CommandType.Text,
                 Connection = minhaConexao
             };
-
             return cmdComando.ExecuteReader();
         }
 
