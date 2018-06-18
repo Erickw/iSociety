@@ -9,6 +9,7 @@ namespace iSociety.UI.Web.Models
     {
         public int aluguelId { get; set; }
         public int responsavelId { get; set; }
+        public int administradorId { get; set; }
         public string nomeCampo { get; set; }       
         public string rua { get; set; }
         public string horarioInicio { get; set; }
@@ -18,5 +19,6 @@ namespace iSociety.UI.Web.Models
         public int numero { get; set; }
         public string cidade { get; set; }
         public bool bar { get; set; }
+
     }
 }

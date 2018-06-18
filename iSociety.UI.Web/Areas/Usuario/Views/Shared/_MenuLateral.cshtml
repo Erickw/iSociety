@@ -1,12 +1,41 @@
-﻿<div class="span3">
-    <ul class="well navbar-left">
-        <li class="active">@Html.ActionLink("Meu Perfil", "Detalhes", new { id = Model.Id })</li>
-        <li class="active">@Html.ActionLink("Editar Perfil", "Editar", new { id = Model.Id })</li>
-        <li class="active">@Html.ActionLink("Alugar Campo", "ListarCampoAluguel", new { id = Model.Id })</li>
-        <li class="active"><a href="#">Meu Perfil</a></li>
-    </ul>
+﻿<div class="container">
+    <section>
+        <div class="row">
+        </div>
+        <div class="row">
+            <div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
 
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <!-- grey -->
+                                @Html.ActionLink("Meu Perfil", "Detalhes", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+                                @Html.ActionLink("Editar Perfil", "Editar", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+                                @Html.ActionLink("Alugar Campo", "ListarCampoAluguel", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
 
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <!-- dblue -->
+                                @Html.ActionLink("Minhas Reservas", "VerReservas", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+                                @Html.ActionLink("Ver Peladas", "VerPeladas", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 
 

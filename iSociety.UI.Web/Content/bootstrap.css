@@ -3114,9 +3114,13 @@ fieldset[disabled] .btn-default.focus {
   background-color: #333;
 }
 .btn-primary {
+    align-self:center;
+    text-align:center;
+    vertical-align:central;
+    align-content:center;
     color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
+    background-color: #529c3b;
+    border-color: #529c3b;
     width: 150px;
     height: 80px;
     border-radius: 5px;
@@ -3128,11 +3132,11 @@ fieldset[disabled] .btn-default.focus {
   background-color: #286090;
   border-color: #122b40;
 }
-.btn-primary:hover {
-  color: #fff;
-  background-color: #286090;
-  border-color: #204d74;
-}
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #529c3b;
+        border-color: #529c3b;
+    }
 .btn-primary:active,
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
@@ -3985,9 +3989,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   display: block;
 }
 .nav > li > a {
+  font-family:'Myriad Pro';
+  font-size: 15px;
   position: relative;
+  height: auto;
   display: block;
-  padding: 10px 15px;
+  padding: 25px 15px;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -4277,10 +4284,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-brand {
     float: left;
-    height: 50px;
-    padding: 15px 15px;
+    height: 40px;
+    padding: 14px 15px;
     font-size: 25px;
     line-height: 20px;
+    font-family:'BDP Birgula'
 }
 .navbar-brand:hover,
 .navbar-brand:focus {
@@ -5705,7 +5713,8 @@ button.list-group-item-danger.active:focus {
   border-bottom-color: #ddd;
 }
 .panel-primary {
-  border-color: #337ab7;
+    border-color: #529c3b;
+   
 }
 .panel-primary > .panel-heading {
   color: #fff;

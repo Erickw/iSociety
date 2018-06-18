@@ -1,0 +1,78 @@
+﻿@model IEnumerable<iSociety.UI.Web.Models.CampoAluguel>
+
+@{
+    ViewBag.Title = "VerPeladas";
+}
+
+@if (Model.Count() != 0)
+{
+<h2 style="text-align:center; ">Aqui estão suas peladas</h2>
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Nome do Campo")
+        </th>
+        <th>
+            @Html.DisplayName("Rua")
+        </th>
+        <th>
+            @Html.DisplayName("Número")
+        </th>
+        <th>
+            @Html.DisplayName("Cidade")
+        </th>
+        <th>
+            @Html.DisplayName("Horário do Início")
+        </th>
+        <th>
+            @Html.DisplayName("Horário do Fim")
+        </th>
+        <th>
+            @Html.DisplayName("Valor")
+        </th>
+
+        <th>
+            @Html.DisplayName("Contém Bar?")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomeCampo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rua)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.numero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cidade)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.horarioInicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.horarioFim)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.valor)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.bar)
+        </td>
+    </tr>
+    }
+</table>
+
+@if (Model.Count() == 0)
+{
+    <h2 style="text-align:center">Você ainda não tem peladas :(</h2>
+}

@@ -4,28 +4,32 @@
     ViewBag.Title = "Editar Campos";
 }
 
-<h2>Edite ou remova seus campos</h2>
+<h2 style="text-align:center">Aqui você pode gerenciar seus campos</h2>
 
 <table class="table">
     <tr>
 
         <th>
-            @Html.DisplayNameFor(model => model.Nome)
+            @Html.DisplayName("Nome do campo")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.rua)
+            @Html.DisplayName("Rua")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.cep)
+            @Html.DisplayName("CEP")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.numero)
+            @Html.DisplayName("Número")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.cidade)
+            @Html.DisplayName("Cidade")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.bar)
+            @Html.DisplayName("Contém bar?")
+        </th>
+
+        <th>
+            @Html.DisplayName("Opções do campo")
         </th>
         <th></th>
     </tr>

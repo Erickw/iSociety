@@ -42,6 +42,7 @@ namespace iSociety.Areas.Admin.Models
             }
         }
 
+
         //Verifica se o horario adicionado já é existente, caso seja a listaHorarios é maior que 0
 
         public bool VerificaHorario(Horario horario) {
@@ -102,6 +103,17 @@ namespace iSociety.Areas.Admin.Models
                 contexto.ExecutaComando(strQuery);
             }
 
+        }
+
+        public void RemoverAluguel(Aluguel aluguel) {
+
+            var strQuery = "";
+            strQuery += $"DELETE FROM aluguel WHERE idAluguel = {aluguel.idAluguel} and horarioInicio = '{aluguel.horarioInicio}'";
+
+            using (contexto = new Contexto())
+            {
+                contexto.ExecutaComando(strQuery);
+            }
         }
 
         public void ExcluirHorario(Horario horario)
@@ -266,6 +278,29 @@ namespace iSociety.Areas.Admin.Models
             }
         }
 
+        public List<CampoAluguel> ListarCamposAlugueisPorId(int id)
+        {
+
+            using (contexto = new Contexto())
+            {
+                var strQuery = $"SELECT C.idAdministrador, C.nomeCampo, C.rua, C.cep, C.numero, C.cidade, C.bar, A.idAluguel, " +
+                               $" A.horarioInicio, A.horarioFim, A.valor, A.confirmado FROM aluguel as A JOIN campo as C ON A.idCampo = C.idCampo WHERE idAdministrador ={id} AND confirmado = 0";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                return ConvertCampoAluguelToObject(DataReader);
+            }
+        }
+
+        public List<CampoAluguel> ListarPagamentos(int id)
+        {
+            using (contexto = new Contexto())
+            {
+                var strQuery = $"SELECT C.nomeCampo, C.rua, C.cep, C.numero, C.cidade, C.bar, A.idAluguel,  A.horarioInicio, A.horarioFim," +
+                               $" A.valor FROM aluguel as A JOIN campo as  C ON A.idCampo = C.idCampo WHERE confirmado = {1} and C.idAdministrador = {id}";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                return ConvertCampoAluguelToObject(DataReader);
+            }
+        }
+
         public Campo SelecionaCampo(int id)
         {
             using (contexto = new Contexto())
@@ -427,7 +462,30 @@ namespace iSociety.Areas.Admin.Models
             return nomeUsuarios;
         }
 
-
+        private List<CampoAluguel> ConvertCampoAluguelToObject(MySqlDataReader reader)
+        {
+            var fields = new List<CampoAluguel>();
+            while (reader.Read())
+            {
+                var temObjeto = new CampoAluguel()
+                {
+                    aluguelId = int.Parse(reader["idAluguel"].ToString()),
+                    responsavelId = 0,
+                    nomeCampo = reader["nomeCampo"].ToString(),
+                    rua = reader["rua"].ToString(),
+                    cep = reader["cep"].ToString(),
+                    numero = int.Parse(reader["numero"].ToString()),
+                    cidade = reader["cidade"].ToString(),
+                    bar = bool.Parse(reader["bar"].ToString()),
+                    horarioInicio = reader["horarioInicio"].ToString(),
+                    horarioFim = reader["horarioFim"].ToString(),
+                    valor = Double.Parse(reader["valor"].ToString())
+                };
+                fields.Add(temObjeto);
+            }
+            reader.Close();
+            return fields;
+        }
 
     }
 }

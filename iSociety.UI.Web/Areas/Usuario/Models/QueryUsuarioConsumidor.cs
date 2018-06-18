@@ -4,6 +4,7 @@ using CryptSharp;
 using iSociety.UI.Web.Models;
 using System.Globalization;
 using System;
+using iSociety.Areas.Admin.Models;
 
 namespace iSociety.Models
 {
@@ -18,6 +19,19 @@ namespace iSociety.Models
             var strQuery = "";
             strQuery += "INSERT INTO usuarioConsumidor (idUsuario, nomeUsuario, email, senha, contaBanco)";
             strQuery += string.Format("VALUES('{0}', '{1}', '{2}', '{3}', '{4}')", user.Id, user.Nome, user.email, user.Senha, user.contaBanco);
+
+            using (contexto = new Contexto())
+            {
+                contexto.ExecutaComando(strQuery);
+            }
+        }
+
+
+        public void InserirPagamento(Pagamento pgto)
+        {
+
+            var strQuery = "";
+            strQuery += $"INSERT INTO pagamento(idConsumidor, idAdministrador, horarioReservado, formaPagamento) VALUES({pgto.idConsumidor}, {pgto.idAdministrador}, '{pgto.horarioReservado}', '{pgto.formaPagamento}')";
 
             using (contexto = new Contexto())
             {
@@ -73,6 +87,33 @@ namespace iSociety.Models
             }
         }
 
+        public void ConfirmarAluguel(Aluguel aluguel)
+        {
+            int confirmado = 0;
+            if (aluguel.confirmado == true) {
+                confirmado = 1;
+            }
+            var strQuery = "";
+            strQuery += $"UPDATE aluguel SET confirmado = {confirmado}, idPagamento = {aluguel.idPagamento} WHERE idAluguel = {aluguel.idAluguel}";
+
+            using (contexto = new Contexto())
+            {
+                contexto.ExecutaComando(strQuery);
+            }
+        }
+
+        public void CancelarAluguel(int id)
+        {
+            var strQuery = "";
+            strQuery += $"UPDATE aluguel SET confirmado = 0, responsavelId = NULL WHERE idAluguel = {id}";
+
+            using (contexto = new Contexto())
+            {
+                contexto.ExecutaComando(strQuery);
+            }
+        }
+
+        
         //public void AlterarAluguel(CampoAluguel aluguel)
         //{
 
@@ -128,7 +169,24 @@ namespace iSociety.Models
             }
         }
 
+        public int ListarIdPagamento() {
 
+            using (contexto = new Contexto())
+            {
+                var strQuery = "SELECT idPagamento FROM pagamento WHERE idPagamento = (SELECT MAX(idPagamento) FROM pagamento)"; 
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+
+                int id = new int();
+                while (DataReader.Read())
+                {
+                    id = int.Parse(DataReader["idPagamento"].ToString());
+                }
+                DataReader.Close();
+
+                return id;
+            }
+
+        }
 
         // Executa a Query para listar por ID e armazena resultados na variavel DataReader
 
@@ -154,6 +212,28 @@ namespace iSociety.Models
             }
         }
 
+        public List<CampoAluguel> ListarCamposAlugueisPorIdUsuario(int id)
+        {
+            using (contexto = new Contexto())
+            {
+                var strQuery = $"SELECT C.nomeCampo, C.rua, C.cep, C.numero, C.cidade, C.bar, A.idAluguel,  A.horarioInicio, A.horarioFim," +
+                               $" A.valor FROM aluguel as A JOIN campo as  C ON A.idCampo = C.idCampo WHERE confirmado = {0} and A.responsavelId = {id}";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                return ConvertCampoAluguelToObject(DataReader);
+            }
+        }       
+
+        public List<CampoAluguel> ListarPeladas(int id)
+        {
+            using (contexto = new Contexto())
+            {
+                var strQuery = $"SELECT C.nomeCampo, C.rua, C.cep, C.numero, C.cidade, C.bar, A.idAluguel,  A.horarioInicio, A.horarioFim," +
+                               $" A.valor FROM aluguel as A JOIN campo as  C ON A.idCampo = C.idCampo WHERE confirmado = {1} and A.responsavelId = {id}";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                return ConvertCampoAluguelToObject(DataReader);
+            }
+        }
+
         public List<UsuarioConsumidor> ListarPorNome(string nome)
         {
             using (contexto = new Contexto())
@@ -164,7 +244,24 @@ namespace iSociety.Models
                 return ConvertToObject(DataReader);
             }
         }
-        
+
+        public int ListarIDAdmNPorNomeCampo(string nome) {
+            using (contexto = new Contexto())
+            {
+                var strQuery = $"SELECT idAdministrador from campo WHERE idCampo = (SELECT idCampo from campo WHERE nomeCampo = '{nome}')";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+
+                int id = new int();
+                while (DataReader.Read())
+                {
+                    id = int.Parse(DataReader["idAdministrador"].ToString());
+                }
+                DataReader.Close();
+
+                return id;
+            }       
+        }    
+
         public bool ValidaUser(UsuarioConsumidor user)
         {
 

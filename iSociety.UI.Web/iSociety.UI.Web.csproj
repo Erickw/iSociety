@@ -178,9 +178,11 @@
     <Compile Include="Models\Aluguel.cs" />
     <Compile Include="Models\Campo.cs" />
     <Compile Include="Models\CampoAluguel.cs" />
+    <Compile Include="Models\Pagamento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Usuario\Views\Login\ConfirmaReserva.cshtml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -235,6 +237,16 @@
     <Content Include="Areas\Usuario\Views\Login\ListarCampoAluguel.cshtml" />
     <Content Include="Areas\Usuario\Views\Login\SucessoReserva.cshtml" />
     <Content Include="Areas\Usuario\Views\Login\Reservar.cshtml" />
+    <Content Include="Areas\Usuario\Views\Login\VerReservas.cshtml" />
+    <Content Include="Areas\Usuario\Views\Login\ValidacaoPagamento.cshtml" />
+    <Content Include="Areas\Usuario\Views\Login\CancelaReserva.cshtml" />
+    <Content Include="Areas\Usuario\Views\Login\SucessoCancelamento.cshtml" />
+    <Content Include="Areas\Usuario\Views\Login\VerPeladas.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\ListarAlugueis.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\RemoverAluguel.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\SucessoRemoverAluguel.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\NaoHaDados.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\VerPagamentos.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

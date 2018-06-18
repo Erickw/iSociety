@@ -13,7 +13,7 @@
     <div class="span4"><li class="active">@Html.ActionLink("Editar Perfil", "Editar", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })</li>  </div>*@
 
 
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+@*<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>*@
 <!------ Include the above in your HEAD tag ---------->
 <div class="container">
     <section>
@@ -21,26 +21,33 @@
         </div>
         <div class="row">
             <div>
-                <div class="panel panel-primary">
+                <div class ="panel panel-primary">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-3">
+
+                            </div>
+                            <div class="col-md-6 text-center">
                                 <!-- grey -->
                                 @Html.ActionLink("Meu Perfil", "Detalhes", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
                                 @Html.ActionLink("Editar Perfil", "Editar", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <!-- dblue -->
                                 @Html.ActionLink("Adicionar Campo", "AdicionarCampo", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+
+                            </div>
+                            <div class="col-md-6 text-center">
+                                <!-- dblue -->
                                 @Html.ActionLink("Gerenciar Campos", "EditarCampo", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+                                @Html.ActionLink("Visualizar Aluguel(is)", "ListarAlugueis", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+                                @Html.ActionLink("Alugueis Pagos", "VerPagamentos", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
                             </div>
                         </div>
                     </div>
@@ -49,6 +56,28 @@
         </div>
     </section>
 </div>
+
+
+@*<section>
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        @Html.ActionLink("Meu Perfil", "Detalhes", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+                        @Html.ActionLink("Editar Perfil", "Editar", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        @Html.ActionLink("Meu Perfil", "Detalhes", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+                        @Html.ActionLink("Editar Perfil", "Editar", new { id = Model.Id }, new { @class = "btn btn-primary btn-large" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>*@
 
 
 

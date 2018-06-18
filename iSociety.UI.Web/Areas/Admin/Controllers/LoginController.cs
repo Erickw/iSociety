@@ -208,6 +208,83 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
             return RedirectToAction("HorarioExistente");
         }
 
+        public ActionResult ListarAlugueis(int id)
+        {
+            var queryCamposAlugueis = new QueryUsuarioFornecedor();
+            var CamposAlugueisList = queryCamposAlugueis.ListarCamposAlugueisPorId(id);
+            if(CamposAlugueisList.Count() == 0)
+            {
+                return View("NaoHaDados");
+            }
+            var campoAluguel = CamposAlugueisList.First();
+            return View(CamposAlugueisList);
+        }
+        
+        public ActionResult RemoverAluguel(int id)
+        {
+            
+            var queryAluguel = new QueryUsuarioFornecedor();
+            var aluguelList = queryAluguel.ListarAluguelPorId(id);
+            var aluguelTD = new Aluguel {
+                idAluguel = aluguelList.First().idAluguel,
+                idCampo = aluguelList.First().idCampo,
+                horarioInicio = aluguelList.First().horarioInicio,
+                horarioFim = aluguelList.First().horarioFim,
+                valor = aluguelList.First().valor
+            };
+            TempData["Aluguel"] = aluguelTD;
+
+            return View(aluguelTD);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RemoverAluguel(Aluguel rent)
+        {
+            var aluguel = TempData["aluguel"] as Aluguel;
+            TempData.Keep();
+            
+            if (ModelState.IsValid)
+            {
+                var queryAluguel = new QueryUsuarioFornecedor();
+                var hora = new Horario
+                {
+                    idCampo = aluguel.idCampo,
+                    horarios = aluguel.horarioInicio
+                };
+
+                if (queryAluguel.VerificaHorario(hora))
+                {
+                    queryAluguel.RemoverAluguel(aluguel);
+                    queryAluguel.AdicionarHorario(hora);
+                    return View("SucessoAluguel");
+                }
+            }
+            return View();
+        }
+
+        //public ActionResult RemoverAluguel(int id)
+        //{
+        //    var queryAluguel = new QueryUsuarioFornecedor();
+        //    var aluguelList = queryAluguel.SelecionaCampo(id);
+        //    Aluguel aluguel = new Aluguel();
+        //    aluguel.idCampo = id;
+        //    return View(aluguel);
+        //}
+
+        //[HttpPost, ActionName("RemoverAluguel")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult RemoveAluguel(int id)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var queryAluguel = new QueryUsuarioFornecedor();
+        //        queryAluguel.RemoverAluguel(id);
+
+        //    }
+        //    return RedirectToAction("HorarioExistente");
+        //}
+
         public ActionResult ExcluirHorario(int id)
         {
             var campo = new QueryUsuarioFornecedor();
@@ -250,6 +327,25 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
 
             return RedirectToAction("CampoExcluido");
         }
+
+        public ActionResult VerPagamentos(int id)
+        {
+            var pgto = new QueryUsuarioFornecedor();
+            var pgtoList = pgto.ListarPagamentos(id);
+            //var logged = new UsuarioConsumidor { Id = id };
+            //TempData["UsuarioConsumidor"] = logged;
+            foreach (var item in pgtoList)
+            {
+                item.responsavelId = id;
+            }
+            if (pgtoList.Count() == 0)
+            {
+                return View("NaoHaDados");
+            }
+            return View(pgtoList);
+        }
+
+
         public ActionResult CampoExcluido() {
             return View();
         }

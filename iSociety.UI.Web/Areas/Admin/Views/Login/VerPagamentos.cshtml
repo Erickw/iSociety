@@ -1,15 +1,10 @@
 ﻿@model IEnumerable<iSociety.UI.Web.Models.CampoAluguel>
 
 @{
-    ViewBag.Title = "Campos disponiveis para locação";
+    ViewBag.Title = "VerPagamentos";
 }
 
-@if (Model.Count() != 0)
-{
-    <h2 style="text-align:center">Escolha um dos campos disponiveis abaixo e parta pro showball</h2>
-}
-
-
+<h2 style="text-align:center">Todos seus alugueis pagos aparecerão aqui</h2>
 
 <table class="table">
     <tr>
@@ -23,22 +18,20 @@
             @Html.DisplayName("Número")
         </th>
         <th>
-            @Html.DisplayName("CEP")
-        </th>
-        <th>
             @Html.DisplayName("Cidade")
         </th>
         <th>
-            @Html.DisplayName("Horário Inicio")
+            @Html.DisplayName("Horário do Início")
         </th>
         <th>
-            @Html.DisplayName("Horário Fim")
-        </th>
-        <th>
-            @Html.DisplayName("Contém Bar?")
+            @Html.DisplayName("Horário do Fim")
         </th>
         <th>
             @Html.DisplayName("Valor")
+        </th>
+
+        <th>
+            @Html.DisplayName("Contém Bar?")
         </th>
         <th></th>
     </tr>
@@ -46,7 +39,6 @@
     @foreach (var item in Model)
     {
         <tr>
-
             <td>
                 @Html.DisplayFor(modelItem => item.nomeCampo)
             </td>
@@ -55,9 +47,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.numero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.cep)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.cidade)
@@ -69,19 +58,12 @@
                 @Html.DisplayFor(modelItem => item.horarioFim)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.bar)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.valor)
             </td>
-            <td>
-                @Html.ActionLink("Alugar agora", "Reservar", new { id = item.aluguelId })
 
+            <td>
+                @Html.DisplayFor(modelItem => item.bar)
             </td>
         </tr>
     }
 </table>
-@if (Model.Count() == 0)
-{
-    <h2 style="text-align:center">Não existem campos disponiveis :(</h2>
-}

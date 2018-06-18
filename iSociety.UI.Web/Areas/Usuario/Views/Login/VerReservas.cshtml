@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<iSociety.UI.Web.Models.CampoAluguel>
 
 @{
-    ViewBag.Title = "Campos disponiveis para locação";
+    ViewBag.Title = "VerReservas";
 }
 
 @if (Model.Count() != 0)
 {
-    <h2 style="text-align:center">Escolha um dos campos disponiveis abaixo e parta pro showball</h2>
+<h3>Aqui estão suas reservas, lembre de <b>confirmar </b>o pagamento com até <b>2 dias </b>ou então ela será cancelada.</h3>
 }
-
 
 
 <table class="table">
     <tr>
+
         <th>
             @Html.DisplayName("Nome do Campo")
         </th>
@@ -25,9 +25,11 @@
         <th>
             @Html.DisplayName("CEP")
         </th>
+
         <th>
             @Html.DisplayName("Cidade")
         </th>
+
         <th>
             @Html.DisplayName("Horário Inicio")
         </th>
@@ -35,10 +37,11 @@
             @Html.DisplayName("Horário Fim")
         </th>
         <th>
-            @Html.DisplayName("Contém Bar?")
-        </th>
-        <th>
             @Html.DisplayName("Valor")
+        </th>
+
+        <th>
+            @Html.DisplayName("Contém Bar?")
         </th>
         <th></th>
     </tr>
@@ -53,12 +56,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.rua)
             </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.numero)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.cep)
             </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.cidade)
             </td>
@@ -69,19 +74,21 @@
                 @Html.DisplayFor(modelItem => item.horarioFim)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.valor)
+            </td>
+
+            <td>
                 @Html.DisplayFor(modelItem => item.bar)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.valor)
-            </td>
-            <td>
-                @Html.ActionLink("Alugar agora", "Reservar", new { id = item.aluguelId })
-
+                @Html.ActionLink("Confirmar Pagamento", "ConfirmaReserva", new { id = item.aluguelId }) |
+                @Html.ActionLink("Cancelar Reserva", "CancelaReserva", new { id = item.aluguelId })
             </td>
         </tr>
     }
+
 </table>
 @if (Model.Count() == 0)
 {
-    <h2 style="text-align:center">Não existem campos disponiveis :(</h2>
+    <h2 style="text-align:center">Você ainda não tem reservas:(</h2>
 }
