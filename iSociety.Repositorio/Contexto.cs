@@ -13,8 +13,7 @@ namespace iSociety.Models
         {
             minhaConexao = new MySqlConnection("server=127.0.0.1;port=3306;User Id=root;database=iSociety; password=1234;SslMode=none");
             minhaConexao.Open();
-        }
-        //"server=31.170.166.180;port=3306;User Id=u599063365_root;database=u599063365_isoc; password=mSoUza5EVTR45mc;SslMode=none"
+        }        
         public void ExecutaComando(string strQuery)
         {
             var cmdComando = new MySqlCommand

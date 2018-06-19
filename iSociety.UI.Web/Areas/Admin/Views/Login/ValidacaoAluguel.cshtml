@@ -1,0 +1,10 @@
+﻿@model iSociety.UI.Web.Models.CampoAluguel
+@{
+    ViewBag.Title = "AdicioneInformações";
+
+}
+
+
+<script>alert("O campo está vazio ou o horario inserido não é valido!");</script>
+<div><h2> @Html.ActionLink("Tentar Novamente", "AdicionarAluguel", new { id = ViewBag.CampoID })</h2></div>
+

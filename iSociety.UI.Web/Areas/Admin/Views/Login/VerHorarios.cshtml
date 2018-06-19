@@ -1,0 +1,32 @@
+﻿@model IEnumerable<iSociety.UI.Web.Models.CampoHorario>
+
+@{
+    ViewBag.Title = "VerHorarios";
+}
+
+<h3>Aqui você pode verificar os horários cadastrados para os respectivos campos</h3>
+
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayName("Nome do Campo")
+        </th>
+        <th>
+            @Html.DisplayName("Horário Disponível")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.nomeCampo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.horarioDisponivel)
+        </td>
+    </tr>
+}
+</table>

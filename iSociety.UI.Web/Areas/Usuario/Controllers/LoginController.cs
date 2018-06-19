@@ -37,11 +37,8 @@ namespace iSociety.UI.Web.Areas.Usuario.Controllers
                 TempData["UsuarioConsumidor"] = logado;
                 return RedirectToAction("Painel");
             }
-            //"~/Areas/Usuario/Views/Painel/Index.cshtml"
-            //return RedirectToRoute(new { controller = "Login", action = "MeuPerfil", id = UrlParameter.Optional });
             return View("Alert");
         }
-
         [HttpGet]
         public ActionResult Painel()
         {
@@ -56,12 +53,9 @@ namespace iSociety.UI.Web.Areas.Usuario.Controllers
                     return View("Alert");
                 }
                 UsuarioConsumidor usuarioSelecionado = usersList[0];
-                //ViewBag.Nome = usuarioSelecionado.Id;
                 return View(usuarioSelecionado);
-                //return View();
             }
             return View();
-
         }
 
         public ActionResult Detalhes(int id)
@@ -77,7 +71,6 @@ namespace iSociety.UI.Web.Areas.Usuario.Controllers
         {
             var users = new QueryUsuarioConsumidor();
             var usersList = users.ListarPorId(id);
-            //var usuarioSelecionado = usersList[0];
             if (usersList == null)
             {
                 return HttpNotFound();
@@ -202,21 +195,16 @@ namespace iSociety.UI.Web.Areas.Usuario.Controllers
             
             return View();
         }
-
-
+        
         public ActionResult CancelaReserva(int id)
         {
-            //var logged = TempData["UsuarioConsumidor"] as UsuarioConsumidor;
-            //TempData.Keep();
             var field = new QueryUsuarioConsumidor();
             var fieldList = field.ListarCamposAlugueisPorId(id);
-            //fieldList.First().responsavelId = logged.Id;
             var campoAluguel = fieldList.First();
             campoAluguel.aluguelId = id;
             return View(campoAluguel);
         }
-
-
+        
         [HttpPost, ActionName("CancelaReserva")]
         [ValidateAntiForgeryToken]
         public ActionResult CancelaReservaConfirma(int id)
@@ -238,8 +226,6 @@ namespace iSociety.UI.Web.Areas.Usuario.Controllers
 
             var field = new QueryUsuarioConsumidor();
             var fieldList = field.ListarPeladas(id);
-            //var logged = new UsuarioConsumidor { Id = id };
-            //TempData["UsuarioConsumidor"] = logged;
             foreach (var item in fieldList)
             {
                 item.responsavelId = id;
@@ -250,7 +236,6 @@ namespace iSociety.UI.Web.Areas.Usuario.Controllers
         {
             return View();
         }
-
     }
 
 

@@ -11,10 +11,34 @@ namespace iSociety.UI.Web.Areas.Master.Controllers
     public class GerenciaAdminController : Controller
     {
         // GET: Master/GerenciaAdmin
+
+        // GET: Login
         public ActionResult Index()
         {
+
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(UsuarioFornecedor user)
+        {
+            var logado = new UsuarioFornecedor
+            {
+                Id = user.Id,
+                Nome = user.Nome,
+                email = user.email,
+                Senha = user.Senha,
+                contaBanco = user.contaBanco
+            };
+            var usuario = new QueryUsuarioFornecedor();
+            if (usuario.ValidaUserMaster(user))
+            {
+                return RedirectToAction("Cadastrar");
+            }
+            return View("Alert");
+        }
+
 
         public ActionResult Cadastrar()
         {
@@ -30,8 +54,8 @@ namespace iSociety.UI.Web.Areas.Master.Controllers
                 string senhaHash = Crypter.Blowfish.Crypt(user.Senha);
                 var usuario = new QueryUsuarioFornecedor();
                 user.Senha = senhaHash;
-                usuario.Inserir(user);              
-                return RedirectToAction("Index");
+                usuario.Inserir(user);
+                return View("SucessoAdm");
             }
             return View(user);
         }

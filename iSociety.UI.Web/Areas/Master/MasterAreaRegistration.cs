@@ -17,7 +17,7 @@ namespace iSociety.UI.Web.Areas.Master
             context.MapRoute(
                 "Master_default",
                 "Master/{controller}/{action}/{id}",
-                new { controller = "GerenciaAdmin", action = "Cadastrar", id = UrlParameter.Optional }
+                new { controller = "GerenciaAdmin", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

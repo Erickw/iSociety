@@ -13,6 +13,8 @@ namespace iSociety.Models
 
         private Contexto contexto;
 
+        //Métodos para inserção
+
         public void Inserir(UsuarioConsumidor user)
         {
 
@@ -26,7 +28,6 @@ namespace iSociety.Models
             }
         }
 
-
         public void InserirPagamento(Pagamento pgto)
         {
 
@@ -39,17 +40,7 @@ namespace iSociety.Models
             }
         }
 
-        public void AlterarEmail(UsuarioConsumidor user)
-        {
-            var strQuery = "UPDATE usuarioConsumidor SET ";
-            strQuery += string.Format("email = '{0}'", user.email);
-            strQuery += string.Format(" WHERE idUsuario = '{0}'", user.Id);
-
-            using (contexto = new Contexto())
-            {
-                contexto.ExecutaComando(strQuery);
-            }
-        }
+        //Métodos de atualização
 
         public void Alterar(UsuarioConsumidor user)
         {
@@ -62,31 +53,7 @@ namespace iSociety.Models
                 contexto.ExecutaComando(strQuery);
             }
         }
-
-        public void AlterarSenha(UsuarioConsumidor user)
-        {
-            var strQuery = "UPDATE usuarioConsumidor SET ";
-            strQuery += string.Format("email = '{0}'", user.Senha);
-            strQuery += string.Format(" WHERE idUsuario = '{0}'", user.Id);
-
-            using (contexto = new Contexto())
-            {
-                contexto.ExecutaComando(strQuery);
-            }
-        }
-
-        public void AlterarContaBanco(UsuarioConsumidor user)
-        {
-            var strQuery = "UPDATE usuarioConsumidor SET ";
-            strQuery += string.Format("email = '{0}'", user.contaBanco);
-            strQuery += string.Format(" WHERE idUsuario = '{0}'", user.Id);
-
-            using (contexto = new Contexto())
-            {
-                contexto.ExecutaComando(strQuery);
-            }
-        }
-
+        
         public void ConfirmarAluguel(Aluguel aluguel)
         {
             int confirmado = 0;
@@ -111,33 +78,9 @@ namespace iSociety.Models
             {
                 contexto.ExecutaComando(strQuery);
             }
-        }
+        }    
 
-        
-        //public void AlterarAluguel(CampoAluguel aluguel)
-        //{
-
-        //    var strQuery = $"UPDATE aluguel SET reponsavelId = {aluguel.responsavelId}, pagamento = {aluguel.id} ";
-
-        //    using (contexto = new Contexto())
-        //    {
-        //        contexto.ExecutaComando(strQuery);
-        //    }
-
-        //}
-
-        //Metodo somente para classe usuario fornecedor
-
-        public void Excluir(int id)
-        {
-            var strQuery = string.Format("DELETE FROM usuarioConsumidor WHERE idUsuario = '{0}'", id);
-            using (contexto = new Contexto())
-            {
-                contexto.ExecutaComando(strQuery);
-            }
-        }
-
-        //Executa a Query e armazena resultado na variavel DataReader
+        //Metódos de consulta
 
         public List<UsuarioConsumidor> ListarTodos()
         {
@@ -186,12 +129,10 @@ namespace iSociety.Models
                 return id;
             }
 
-        }
-
-        // Executa a Query para listar por ID e armazena resultados na variavel DataReader
+        }       
 
         public List<UsuarioConsumidor> ListarPorId(int id)
-        {
+        { // Executa a Query para listar por ID e armazena resultados na variavel DataReader
             using (contexto = new Contexto())
             {
                 var strQuery = string.Format(" SELECT * FROM usuarioConsumidor WHERE idUsuario = '{0}' ", id);
@@ -260,28 +201,40 @@ namespace iSociety.Models
 
                 return id;
             }       
-        }    
+        }
 
         public bool ValidaUser(UsuarioConsumidor user)
         {
 
             using (contexto = new Contexto())
             {
-                
+
                 var strQuery = $"SELECT nomeUsuario, senha FROM usuarioConsumidor WHERE nomeUsuario = '{user.Nome}'";
                 var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
                 var Credenciais = ConvertToObjectLess(DataReader);
-
+                if (Credenciais.Count == 0)
+                    return false;
                 if (Crypter.CheckPassword(user.Senha, Credenciais[0].Senha))
                     return true;
                 return false;
             }
-        } 
-        
-        // Converte o Resultado da query do metodo anterior em uma lista
+        }
+
+        public bool VerificaUserName(UsuarioConsumidor user)
+        {
+            using (contexto = new Contexto())
+            {
+                var strQuery = $"SELECT nomeUsuario FROM usuarioConsumidor WHERE nomeUsuario LIKE '{user.Nome}'";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                var Credenciais = ConvertToString(DataReader);
+                return Credenciais.Count < 0;
+            }
+        }
+
+        //Métodos de conversão em Objeto       
 
         private List<UsuarioConsumidor> ConvertToObject(MySqlDataReader reader)
-        {
+        {// Converte o Resultado da query do metodo anterior em uma lista
             var users = new List<UsuarioConsumidor>();
             while (reader.Read())
             {

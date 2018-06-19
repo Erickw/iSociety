@@ -164,11 +164,9 @@
     <Compile Include="Areas\Admin\Models\UsuarioFornecedor.cs" />
     <Compile Include="Areas\Master\Controllers\GerenciaAdminController.cs" />
     <Compile Include="Areas\Master\MasterAreaRegistration.cs" />
-    <Compile Include="Areas\Usuario\Controllers\PainelController.cs" />
     <Compile Include="Areas\Usuario\UsuarioAreaRegistration.cs" />
     <Compile Include="Areas\Usuario\Controllers\CadastroController.cs" />
     <Compile Include="Areas\Usuario\Controllers\LoginController.cs" />
-    <Compile Include="Controllers\UserConsumidorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -178,6 +176,7 @@
     <Compile Include="Models\Aluguel.cs" />
     <Compile Include="Models\Campo.cs" />
     <Compile Include="Models\CampoAluguel.cs" />
+    <Compile Include="Models\CampoHorario.cs" />
     <Compile Include="Models\Pagamento.cs" />
     <Compile Include="Models\PlanoMensal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -217,7 +216,7 @@
     <Content Include="Areas\Master\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Master\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Master\Views\GerenciaAdmin\Cadastrar.cshtml" />
-    <Content Include="Areas\Master\Views\GerenciaAdmin\Index.cshtml" />
+    <Content Include="Areas\Master\Views\GerenciaAdmin\SucessoAdm.cshtml" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Detalhes.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Editar.cshtml" />
@@ -250,6 +249,12 @@
     <Content Include="Areas\Admin\Views\Login\VerPagamentos.cshtml" />
     <Content Include="Areas\Admin\Views\Login\AdicionarPlanoMensal.cshtml" />
     <Content Include="Areas\Admin\Views\Login\SucessoPlanoMensal.cshtml" />
+    <Content Include="Areas\Master\Views\GerenciaAdmin\UsuarioExistente.cshtml" />
+    <Content Include="Areas\Usuario\Views\Cadastro\UsuarioExistente.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\ValidacaoAluguel.cshtml" />
+    <Content Include="Areas\Master\Views\GerenciaAdmin\Alert.cshtml" />
+    <Content Include="Areas\Master\Views\GerenciaAdmin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\VerHorarios.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -275,11 +280,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\UserConsumidor\Index.cshtml" />
-    <Content Include="Views\UserConsumidor\Cadastrar.cshtml" />
-    <Content Include="Views\UserConsumidor\Editar.cshtml" />
-    <Content Include="Views\UserConsumidor\Detalhes.cshtml" />
-    <Content Include="Views\UserConsumidor\Excluir.cshtml" />
     <Content Include="Areas\Usuario\Views\Cadastro\Index.cshtml" />
     <Content Include="Areas\Usuario\Views\Login\Index.cshtml" />
     <Content Include="Areas\Usuario\Views\Login\Alert.cshtml" />
@@ -303,10 +303,6 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\iSociety.Aplicacao\iSociety.Aplicacao.csproj">
-      <Project>{503e2168-a691-4d66-a81d-c723bae6c6c6}</Project>
-      <Name>iSociety.Aplicacao</Name>
-    </ProjectReference>
     <ProjectReference Include="..\iSociety.Repositorio\iSociety.Repositorio.csproj">
       <Project>{14f0bfb5-892a-4339-b671-615cfe5a124a}</Project>
       <Name>iSociety.Repositorio</Name>

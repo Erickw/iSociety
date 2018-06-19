@@ -16,10 +16,8 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
         // GET: Login
         public ActionResult Index()
         {
-
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(UsuarioFornecedor user)
@@ -38,8 +36,6 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
                 TempData["UsuarioFornecedor"] = logado;
                 return RedirectToAction("Painel");
             }
-            //"~/Areas/Usuario/Views/Painel/Index.cshtml"
-            //return RedirectToRoute(new { controller = "Login", action = "MeuPerfil", id = UrlParameter.Optional });
             return View("Alert");
         }
 
@@ -57,9 +53,7 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
                     return View("Alert");
                 }
                 UsuarioFornecedor usuarioSelecionado = usersList[0];
-                //ViewBag.Nome = usuarioSelecionado.Id;
                 return View(usuarioSelecionado);
-                //return View();
             }
             return View();
         }
@@ -78,7 +72,6 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
         {
             var users = new QueryUsuarioFornecedor();
             var usersList = users.ListarPorId(id);
-            //var usuarioSelecionado = usersList[0];
             if (usersList == null)
             {
                 return HttpNotFound();
@@ -165,14 +158,13 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AdicionarHorario(Horario hora)
         {
-            int i = hora.idCampo;
-            var h = hora.horarios;
+
             if (ModelState.IsValid)
             {                
                 var horario = new QueryUsuarioFornecedor();
                 if (horario.VerificaHorario(hora)) {
                     horario.AdicionarHorario(hora);
-                    return RedirectToAction("HorarioAdicionado");
+                    return View ();
                 }
             }
             return RedirectToAction("HorarioExistente");
@@ -182,7 +174,7 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
             var campo = new QueryUsuarioFornecedor();
             var campoEscolhido = campo.SelecionaCampo(id);
             Aluguel aluguel = new Aluguel();
-            aluguel.idCampo = campoEscolhido.id;
+            aluguel.idCampo = id;
             return View(aluguel);
         }
 
@@ -190,6 +182,18 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AdicionarAluguel(Aluguel aluguel)
         {
+            DateTime temp;
+            if (string.IsNullOrEmpty(aluguel.horarioInicio) || !DateTime.TryParse(aluguel.horarioInicio, out temp))
+            {
+                ViewBag.CampoID = aluguel.idCampo;
+                return View("ValidacaoAluguel");
+            }
+            var horarioFim = DateTime.Parse(aluguel.horarioInicio);
+            horarioFim = horarioFim.AddHours(1);
+            var strAux = horarioFim.ToString();
+            String strHorarioFim = strAux.Remove(0, 10);
+            aluguel.horarioFim = strHorarioFim;
+
             if (ModelState.IsValid)
             {
                 var queryAluguel = new QueryUsuarioFornecedor();
@@ -197,12 +201,14 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
                     idCampo = aluguel.idCampo,
                     horarios = aluguel.horarioInicio                    
                 };
-                
                 if (!queryAluguel.VerificaHorario(hora))
-                {   
-                    queryAluguel.CriarAluguel(aluguel);
-                    queryAluguel.ExcluirHorario(hora);
-                    return View("SucessoAluguel");
+                {
+                    if (queryAluguel.VerificaHorarioAluguel(hora))
+                    {
+                        queryAluguel.CriarAluguel(aluguel);
+                        queryAluguel.ExcluirHorario(hora);
+                        return View("SucessoAluguel");
+                    }
                 }
             }
             return RedirectToAction("HorarioExistente");
@@ -263,28 +269,6 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
             return View();
         }
 
-        //public ActionResult RemoverAluguel(int id)
-        //{
-        //    var queryAluguel = new QueryUsuarioFornecedor();
-        //    var aluguelList = queryAluguel.SelecionaCampo(id);
-        //    Aluguel aluguel = new Aluguel();
-        //    aluguel.idCampo = id;
-        //    return View(aluguel);
-        //}
-
-        //[HttpPost, ActionName("RemoverAluguel")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult RemoveAluguel(int id)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var queryAluguel = new QueryUsuarioFornecedor();
-        //        queryAluguel.RemoverAluguel(id);
-
-        //    }
-        //    return RedirectToAction("HorarioExistente");
-        //}
-
         public ActionResult ExcluirHorario(int id)
         {
             var campo = new QueryUsuarioFornecedor();
@@ -332,8 +316,7 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
         {
             var pgto = new QueryUsuarioFornecedor();
             var pgtoList = pgto.ListarPagamentos(id);
-            //var logged = new UsuarioConsumidor { Id = id };
-            //TempData["UsuarioConsumidor"] = logged;
+
             foreach (var item in pgtoList)
             {
                 item.responsavelId = id;
@@ -344,7 +327,18 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
             }
             return View(pgtoList);
         }
-        
+
+        public ActionResult VerHorarios(int id)
+        {
+            var queryHorarios = new QueryUsuarioFornecedor();
+            var horariosList = queryHorarios.ListarHorarios(id);
+            if (horariosList.Count() == 0)
+            {
+                return View("NaoHaDados");
+            }
+            return View(horariosList);
+        }
+
         public ActionResult AdicionarPlanoMensal(int id) {
             var queryPlanoMensal = new QueryUsuarioFornecedor();
             var campoEscolhido = queryPlanoMensal.SelecionaCampo(id);
@@ -374,7 +368,7 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
                 }
             }
             return RedirectToAction("HorarioExistente");
-        }
+        }  
 
 
         public ActionResult CampoExcluido() {

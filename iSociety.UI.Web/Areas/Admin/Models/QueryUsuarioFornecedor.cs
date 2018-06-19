@@ -5,13 +5,15 @@ using iSociety.Models;
 using iSociety.UI.Web.Models;
 using System;
 using iSociety.UI.Web.Areas.Admin.Models;
+using System.Linq;
 
 namespace iSociety.Areas.Admin.Models
 {
     public class QueryUsuarioFornecedor
     {
-
         private Contexto contexto;
+
+        //Métodos para inserção
 
         public void Inserir(UsuarioFornecedor user)
         {
@@ -42,43 +44,15 @@ namespace iSociety.Areas.Admin.Models
             }
         }
 
-
-        //Verifica se o horario adicionado já é existente, caso seja a listaHorarios é maior que 0
-
-        public bool VerificaHorario(Horario horario) {
-
-            IEnumerable<String> horarios = horario.horarios.Split(',');
-            var listaHorarios = new List<Horario>();
-            var horariosRetornados = new List<MySqlDataReader>();
-
-            foreach (String item in horarios) {
-                
-                using (contexto = new Contexto())
-                {
-                    var strQuery = $"SELECT idCampo ,horarioDisponivel FROM horarios WHERE horarioDisponivel LIKE '{item}%' AND idCampo = '{horario.idCampo}'";
-                    var DataReader = contexto.ExecutaComandoComRetorno(strQuery);                  
-                    while (DataReader.Read())
-                    {
-                        var temObjeto = new Horario()
-                        {     
-                            idCampo = int.Parse(DataReader["idCampo"].ToString()),
-                            horarios = DataReader["horarioDisponivel"].ToString(),
-                        };
-                        listaHorarios.Add(temObjeto);
-                    }
-                }
-            }
-            return listaHorarios.Count == 0;
-        }
-
         public void AdicionarHorario(Horario horario)
         {
             IEnumerable<String> horarios = horario.horarios.Split(',');
-            
-            foreach (String item in horarios){
+
+            foreach (String item in horarios)
+            {
                 var strQuery = "";
                 strQuery += "INSERT INTO horarios (idCampo, horarioDisponivel)";
-                strQuery += string.Format("VALUES('{0}', '{1}')", horario.idCampo, item);            
+                strQuery += string.Format("VALUES('{0}', '{1}')", horario.idCampo, item);
 
                 using (contexto = new Contexto())
                 {
@@ -110,7 +84,7 @@ namespace iSociety.Areas.Admin.Models
             var strQuery = "";
             strQuery += $"INSERT INTO planoMensal (idPlanoMensal, campoId , horarioInicio, horarioFim, diaSemana) " +
                         $"VALUES ({planoMensal.idPlanoMensal}, {planoMensal.campoId}, '{planoMensal.horarioInicio}', " +
-                        $"'{planoMensal.horarioFim}', '{planoMensal.diaSemana}')";            
+                        $"'{planoMensal.horarioFim}', '{planoMensal.diaSemana}')";
 
             using (contexto = new Contexto())
             {
@@ -118,31 +92,118 @@ namespace iSociety.Areas.Admin.Models
             }
         }
 
-        public void RemoverAluguel(Aluguel aluguel) {
+        //Métodos de verificação
 
-            var strQuery = "";
-            strQuery += $"DELETE FROM aluguel WHERE idAluguel = {aluguel.idAluguel} and horarioInicio = '{aluguel.horarioInicio}'";
-
-            using (contexto = new Contexto())
-            {
-                contexto.ExecutaComando(strQuery);
-            }
-        }
-
-        public void ExcluirHorario(Horario horario)
+        public bool VerificaUserName(UsuarioFornecedor user)
         {
+            using (contexto = new Contexto())
+            {
+                var strQuery = $"SELECT nomeUsuario FROM usuarioFornecedor WHERE nomeUsuario LIKE '{user.Nome}%'";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                var Credenciais = ConvertToString(DataReader);
+                return Credenciais.Count < 0;
+            }
+        }
+                
+        public bool VerificaHorario(Horario horario)
+        {//Verifica se o horario adicionado já é existente, caso seja a listaHorarios é maior que 0
+
             IEnumerable<String> horarios = horario.horarios.Split(',');
+            var listaHorarios = new List<Horario>();
+            var horariosRetornados = new List<MySqlDataReader>();
 
             foreach (String item in horarios)
             {
-                var strQuery = "";
-                strQuery += $"DELETE FROM horarios WHERE idCampo = '{horario.idCampo}' and horarioDisponivel = '{item}'";                
                 using (contexto = new Contexto())
                 {
-                    contexto.ExecutaComando(strQuery);
+                    var strQuery = $"SELECT idCampo ,horarioDisponivel FROM horarios WHERE horarioDisponivel LIKE '{item}%' AND idCampo = '{horario.idCampo}'";
+                    var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                    while (DataReader.Read())
+                    {
+                        var temObjeto = new Horario()
+                        {
+                            idCampo = int.Parse(DataReader["idCampo"].ToString()),
+                            horarios = DataReader["horarioDisponivel"].ToString(),
+                        };
+                        listaHorarios.Add(temObjeto);
+                    }
                 }
-            }            
+            }
+            return listaHorarios.Count == 0;
         }
+        
+        public bool VerificaHorarioAluguel(Horario horario)
+        { //Verifica se o horário para aquele aluguel esta na faixa de horário de um horario de aluguel existente, caso esteja, a listaHorarios é maior que 0.
+
+            String[] horariosDivididos = horario.horarios.Split(new Char[] { ',', ':' });
+            List<String> horariosConvertidos = new List<string>();
+            // Converte a matriz horariosDivididos em Array
+            foreach (var item in horariosDivididos)
+            {
+                horariosConvertidos.Add(item);
+            }
+            // Criar um array somente com as horas da lista horariosConvertidos
+            var somenteHoras = horariosConvertidos.Where(val => val != "00").ToArray();
+            var listaHorarios = new List<Horario>();
+            var horariosRetornados = new List<MySqlDataReader>();
+
+            foreach (var item in somenteHoras)
+            {
+
+                using (contexto = new Contexto())
+                {
+                    var strQuery = $"SELECT idCampo , horarioInicio FROM aluguel WHERE horarioInicio LIKE '{item}%' AND idCampo = {horario.idCampo}";
+                    var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                    while (DataReader.Read())
+                    {
+                        var temObjeto = new Horario()
+                        {
+                            idCampo = int.Parse(DataReader["idCampo"].ToString()),
+                            horarios = DataReader["horarioInicio"].ToString(),
+                        };
+                        listaHorarios.Add(temObjeto);
+                    }
+                }
+            }
+            return listaHorarios.Count == 0;
+        }
+
+        public bool ValidaUser(UsuarioFornecedor user)
+        {
+
+            using (contexto = new Contexto())
+            {
+
+                var strQuery = $"SELECT nomeUsuario, senha FROM UsuarioFornecedor WHERE nomeUsuario = '{user.Nome}'";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                var Credenciais = ConvertToObjectLess(DataReader);
+
+                if (Credenciais.Count == 0)
+                    return false;
+                if (Crypter.CheckPassword(user.Senha, Credenciais[0].Senha))
+                    return true;
+                return false;
+            }
+        }
+
+        public bool ValidaUserMaster(UsuarioFornecedor user)
+        {
+
+            using (contexto = new Contexto())
+            {
+
+                var strQuery = $"SELECT nomeUsuario, senha FROM usuarioFornecedor WHERE (SELECT nomeUsuario FROM usuarioFornecedor WHERE nomeUsuario = '{user.Nome}') LIKE 'master'";
+                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                var Credenciais = ConvertToObjectLess(DataReader);
+                if (Credenciais.Count == 0)
+                    return false;
+                if (Crypter.CheckPassword(user.Senha, Credenciais[0].Senha))
+                    return true;
+                return false;
+            }
+        }
+
+        //Métodos de atualização
 
         public void AlterarEmail(UsuarioFornecedor user)
         {
@@ -228,8 +289,35 @@ namespace iSociety.Areas.Admin.Models
                 contexto.ExecutaComando(strQuery);
             }
         }
+        
+        //Métodos de remoção
 
-        //Metodo somente para classe usuario fornecedor
+        public void RemoverAluguel(Aluguel aluguel)
+        {
+
+            var strQuery = "";
+            strQuery += $"DELETE FROM aluguel WHERE idAluguel = {aluguel.idAluguel} and horarioInicio = '{aluguel.horarioInicio}'";
+
+            using (contexto = new Contexto())
+            {
+                contexto.ExecutaComando(strQuery);
+            }
+        }
+
+        public void ExcluirHorario(Horario horario)
+        {
+            IEnumerable<String> horarios = horario.horarios.Split(',');
+
+            foreach (String item in horarios)
+            {
+                var strQuery = "";
+                strQuery += $"DELETE FROM horarios WHERE idCampo = '{horario.idCampo}' and horarioDisponivel = '{item}'";
+                using (contexto = new Contexto())
+                {
+                    contexto.ExecutaComando(strQuery);
+                }
+            }
+        }
 
         public void Excluir(int id)
         {
@@ -248,11 +336,11 @@ namespace iSociety.Areas.Admin.Models
                 contexto.ExecutaComando(strQuery);
             }
         }
-
-        //Executa a Query e armazena resultado na variavel DataReader
+                
+        //Metódos de consulta
 
         public List<UsuarioFornecedor> ListarTodos()
-        {
+        {//Executa a Query e armazena resultado na variavel DataReader
             using (contexto = new Contexto())
             {
                 var strQuery = " SELECT * FROM UsuarioFornecedor ";
@@ -335,10 +423,8 @@ namespace iSociety.Areas.Admin.Models
             }
         }
 
-        // Executa a Query para listar por ID e armazena resultados na variavel DataReader
-
         public List<UsuarioFornecedor> ListarPorId(int id)
-        {
+        {// Executa a Query para listar por ID e armazena resultados na variavel DataReader
             using (contexto = new Contexto())
             {
                 var strQuery = string.Format(" SELECT * FROM UsuarioFornecedor WHERE idUsuario = '{0}' ", id);
@@ -359,27 +445,20 @@ namespace iSociety.Areas.Admin.Models
             }
         }
 
-
-        public bool ValidaUser(UsuarioFornecedor user)
+        public List<CampoHorario> ListarHorarios(int id)
         {
+                using (contexto = new Contexto())
+                {
+                    var strQuery = $"SELECT nomeCampo, horarioDisponivel FROM campo as C JOIN horarios as H ON C.idCampo = H.idCampo WHERE idAdministrador = {id}";
+                    var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                    return ConvertCampoHorarioToObject(DataReader);
+                }
+        }
 
-            using (contexto = new Contexto())
-            {
-                
-                var strQuery = $"SELECT nomeUsuario, senha FROM UsuarioFornecedor WHERE nomeUsuario = '{user.Nome}'";
-                var DataReader = contexto.ExecutaComandoComRetorno(strQuery);
-                var Credenciais = ConvertToObjectLess(DataReader);
-
-                if (Crypter.CheckPassword(user.Senha, Credenciais[0].Senha))
-                    return true;
-                return false;
-            }
-        } 
-        
-        // Converte o Resultado da query do metodo anterior em uma lista
+        //Métodos de conversão em Objeto
 
         private List<UsuarioFornecedor> ConvertToObject(MySqlDataReader reader)
-        {
+        {// Converte o Resultado da query do metodo anterior em uma lista
             var users = new List<UsuarioFornecedor>();
             while (reader.Read())
             {
@@ -497,6 +576,21 @@ namespace iSociety.Areas.Admin.Models
             return fields;
         }
 
+        private List<CampoHorario> ConvertCampoHorarioToObject(MySqlDataReader reader)
+        {
+            var horarios = new List<CampoHorario>();
+            while (reader.Read())
+            {
+                var temObjeto = new CampoHorario()
+                {
+                    nomeCampo = reader["nomeCampo"].ToString(),
+                    horarioDisponivel = reader["horarioDisponivel"].ToString(),
+                };
+                horarios.Add(temObjeto);
+            }
+            reader.Close();
+            return horarios;
+        }
     }
 }
 

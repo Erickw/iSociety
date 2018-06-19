@@ -18,15 +18,15 @@ namespace iSociety.UI.Web.Areas.Admin.Controllers
         public ActionResult Index(UsuarioConsumidor user)
         {
             if (ModelState.IsValid)
-            {
-                //var cripto = new Cripto();
+            {                
                 string senhaHash = Crypter.Blowfish.Crypt(user.Senha);
                 var usuario = new QueryUsuarioConsumidor();
-                //var senhaHash = cripto.Hash(user.Senha);
-                user.Senha = senhaHash;
-                usuario.Inserir(user);
-                return RedirectToAction("Index");
-                //return RedirectToRoute(new{ controller = "Home", action = "About", id = UrlParameter.Optional });
+                if (usuario.VerificaUserName(user))
+                {
+                    user.Senha = senhaHash;
+                    usuario.Inserir(user);
+                }
+                return View("UsuarioExistente");
             }
             return View(user);
         }
